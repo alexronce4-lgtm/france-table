@@ -350,6 +350,158 @@
     }
     .sticker-earned.show { display: block; }
 
+    /* ── Name input ── */
+    .name-input-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+      align-items: center;
+    }
+    .name-input {
+      flex: 1;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 9px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text-dark);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.18s;
+    }
+    .name-input:focus { border-color: var(--navy); background: white; }
+    .name-input::placeholder { color: #aab0bf; }
+
+    /* ── Certificate card ── */
+    .cert-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,10,40,0.75);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+    .cert-overlay.show { display: flex; }
+
+    .cert-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem 1.75rem 1.5rem;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .cert-top-bar {
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(to right, var(--navy), var(--white), var(--red));
+      margin-bottom: 1.5rem;
+    }
+    .cert-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .cert-title {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.2rem;
+    }
+    .cert-title span { color: var(--red); }
+    .cert-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 0.9rem 0 0.25rem;
+      letter-spacing: -0.01em;
+    }
+    .cert-sub {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-bottom: 1rem;
+    }
+    .cert-mascots {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .cert-mascots img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+    }
+    .cert-phrases {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.1rem;
+    }
+    .cert-phrase-chip {
+      background: var(--cream);
+      border: 1px solid var(--cream-dark);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.75rem;
+      color: var(--text-mid);
+      font-weight: 500;
+    }
+    .cert-event {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .cert-date {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+    .cert-bottom-bar {
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(to right, var(--red), var(--white), var(--navy));
+      margin-top: 1.25rem;
+    }
+    .cert-actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1.1rem;
+    }
+    .cert-btn {
+      flex: 1;
+      padding: 0.65rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.18s;
+    }
+    .cert-btn:active { opacity: 0.8; }
+    .cert-btn.print { background: var(--navy); color: white; }
+    .cert-btn.close { background: var(--cream-dark); color: var(--text-dark); }
+
+    @media print {
+      body > *:not(.cert-overlay) { display: none !important; }
+      .cert-overlay { position: static; background: none; padding: 0; display: block; }
+      .cert-actions { display: none; }
+      .cert-card { box-shadow: none; border: 1px solid #eee; }
+    }
+
     /* ── Mascot Cards ── */
     .mascot-row {
       display: grid;
@@ -808,6 +960,10 @@
       <p><strong>How to earn your sticker:</strong> Say 3 French words or phrases out loud with confidence to the table host. Tap each one as you say it!</p>
     </div>
 
+    <div class="name-input-row">
+      <input class="name-input" id="visitorName" type="text" placeholder="Enter your name to personalize your certificate…" maxlength="40" autocomplete="off">
+    </div>
+
     <div class="phrase-grid" id="phraseGrid">
       <!-- Phrases injected by JS -->
     </div>
@@ -818,7 +974,11 @@
     <div class="progress-label" id="progressLabel">Tap phrases as you say them — 0 / 13</div>
 
     <div class="sticker-earned" id="stickerEarned">
-      🌟 Félicitations! You've earned your Certified French Speaker sticker! Ask the table host to claim it.
+      🌟 <span id="stickerText">Félicitations! You've earned your Certified French Speaker sticker!</span>
+      <br><br>
+      <button onclick="showCertificate()" style="background:var(--navy);color:white;border:none;border-radius:9px;padding:0.6rem 1.25rem;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;margin-top:0.25rem;">
+        🎓 View My Certificate
+      </button>
     </div>
   </div>
 
@@ -1183,6 +1343,29 @@
 
 <div class="tricolor"></div>
 
+<!-- ═══ CERTIFICATE OVERLAY ═══ -->
+<div class="cert-overlay" id="certOverlay">
+  <div class="cert-card" id="certCard">
+    <div class="cert-top-bar"></div>
+    <div class="cert-label">This certifies that</div>
+    <div class="cert-name" id="certName">—</div>
+    <div class="cert-title">is a <span>Certified</span><br>French Speaker 🇫🇷</div>
+    <div class="cert-sub">having spoken French with confidence</div>
+    <div class="cert-mascots">
+      <img src="assets/certified_french_speaker_boy.png" alt="Blue Edition" onerror="this.style.display='none'">
+      <img src="assets/certified_french_speaker_girl.png" alt="Pink Edition" onerror="this.style.display='none'">
+    </div>
+    <div class="cert-phrases" id="certPhrases"></div>
+    <div class="cert-event">SMC International Day 2026</div>
+    <div class="cert-date">May 26, 2026 &nbsp;·&nbsp; Santa Monica College</div>
+    <div class="cert-bottom-bar"></div>
+    <div class="cert-actions">
+      <button class="cert-btn print" onclick="window.print()">🖨️ Print / Save</button>
+      <button class="cert-btn close" onclick="document.getElementById('certOverlay').classList.remove('show')">✕ Close</button>
+    </div>
+  </div>
+</div>
+
 <script>
   // ── French Speaker Challenge ──
   const phrases = [
@@ -1205,8 +1388,10 @@
   const bar = document.getElementById('progressBar');
   const label = document.getElementById('progressLabel');
   const earned = document.getElementById('stickerEarned');
+  const stickerText = document.getElementById('stickerText');
   const total = phrases.length;
   let done = 0;
+  let donePhrases = new Set();
 
   phrases.forEach((p, i) => {
     const chip = document.createElement('button');
@@ -1219,16 +1404,33 @@
     chip.addEventListener('click', () => {
       if (chip.classList.toggle('done')) {
         done++;
+        donePhrases.add(p.text);
       } else {
         done--;
+        donePhrases.delete(p.text);
       }
       const pct = Math.round((done / total) * 100);
       bar.style.width = pct + '%';
+      const name = document.getElementById('visitorName').value.trim();
+      const greeting = name ? `Félicitations, ${name}!` : 'Félicitations!';
       label.textContent = `${done} / ${total} phrases said${done >= 3 ? ' — 🎉 Sticker unlocked!' : ''}`;
+      if (done >= 3) {
+        stickerText.textContent = `${greeting} You've earned your Certified French Speaker sticker!`;
+      }
       earned.classList.toggle('show', done >= 3);
     });
     grid.appendChild(chip);
   });
+
+  function showCertificate() {
+    const name = document.getElementById('visitorName').value.trim() || 'Visiteur';
+    document.getElementById('certName').textContent = name;
+    const certPhrases = document.getElementById('certPhrases');
+    certPhrases.innerHTML = [...donePhrases].map(ph =>
+      `<span class="cert-phrase-chip">${ph}</span>`
+    ).join('');
+    document.getElementById('certOverlay').classList.add('show');
+  }
 
   // ── French Phrase Coach ──
   const coachPhrases = [
