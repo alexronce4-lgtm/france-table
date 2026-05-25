@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>France Table — SMC International Day 2026</title>
+  <style>
+    :root {
+      --navy: #002395;
+      --navy-light: #0a2f8a;
+      --navy-deep: #001050;
+      --red: #ED2939;
+      --white: #FFFFFF;
+      --cream: #fdf8f2;
+      --cream-dark: #f4ede1;
+      --gold: #b8973a;
+      --gold-light: #d4b563;
+      --gold-pale: #f5e9c0;
+      --text-dark: #12192e;
+      --text-mid: #3a4060;
+      --text-soft: #6b7280;
+      --card-bg: #ffffff;
+      --shadow: 0 2px 16px rgba(0,35,149,0.09);
+      --shadow-hover: 0 6px 28px rgba(0,35,149,0.16);
+      --radius: 14px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Tricolor Bar ── */
+    .tricolor {
+      height: 5px;
+      background: linear-gradient(to right,
+        var(--navy) 0% 33.33%,
+        var(--white) 33.33% 66.66%,
+        var(--red) 66.66% 100%
+      );
+    }
+
+    /* ── Nav strip ── */
+    .nav-strip {
+      background: var(--navy);
+      padding: 0.55rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .nav-strip span {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .nav-strip .flag { font-size: 1rem; }
+
+    /* ── Hero ── */
+    .hero {
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(237,41,57,0.13) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(184,151,58,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(0,35,149,0.25) 0%, transparent 60%),
+        linear-gradient(160deg, #000d3a 0%, #001a6e 35%, #002395 65%, #001f80 100%);
+      color: var(--white);
+      padding: 4rem 1.5rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Eiffel Tower silhouette */
+    .hero-eiffel {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    /* Star pattern overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    /* Soft light orbs */
+    .hero-orb-red {
+      position: absolute;
+      top: -70px; right: -70px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(237,41,57,0.22) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-orb-gold {
+      position: absolute;
+      bottom: -90px; left: -50px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(184,151,58,0.16) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-orb-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.88);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.35rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 6vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 3vw, 1.1rem);
+      color: rgba(255,255,255,0.8);
+      max-width: 480px;
+      margin: 0 auto 1rem;
+    }
+
+    .hero-french {
+      display: inline-block;
+      font-style: italic;
+      color: var(--gold-light);
+      font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+      margin-top: 0.25rem;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.2);
+    }
+
+    /* CTA pill */
+    .hero-cta {
+      display: inline-block;
+      margin-top: 1.75rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy-deep);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      padding: 0.65rem 1.5rem;
+      border-radius: 999px;
+      box-shadow: 0 4px 18px rgba(184,151,58,0.35);
+      text-transform: uppercase;
+    }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 2rem;
+      opacity: 0.35;
+    }
+    .hero-divider span { width: 40px; height: 1px; background: white; }
+    .hero-divider em { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-style: normal; }
+
+    /* Cafe window frame bottom */
+    .hero-frame {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right,
+        rgba(184,151,58,0.6) 0%,
+        rgba(255,255,255,0.15) 50%,
+        rgba(184,151,58,0.6) 100%
+      );
+    }
+
+    /* ── Section wrapper ── */
+    .section {
+      padding: 2.75rem 1.25rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .section + .section { padding-top: 0.5rem; }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--navy);
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .section-title {
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      line-height: 1.25;
+    }
+    .section-desc {
+      color: var(--text-mid);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* ── Divider ── */
+    .stripe-divider {
+      height: 3px;
+      background: linear-gradient(to right,
+        var(--navy) 0% 33.33%,
+        var(--cream-dark) 33.33% 66.66%,
+        var(--red) 66.66% 100%
+      );
+      opacity: 0.35;
+      margin: 0 1.25rem;
+    }
+
+    /* ── Speaker Challenge ── */
+    .challenge-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+    }
+    .challenge-intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, #fff8e8, #fff3d0);
+      border: 1.5px solid var(--gold-light);
+      border-radius: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .challenge-intro .trophy { font-size: 1.75rem; flex-shrink: 0; }
+    .challenge-intro p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.55; }
+    .challenge-intro strong { color: var(--text-dark); }
+
+    .phrase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+    .phrase-chip {
+      background: var(--cream);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 9px;
+      padding: 0.65rem 0.75rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      position: relative;
+    }
+    .phrase-chip .check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid #d1d5db;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.65rem;
+      transition: all 0.18s ease;
+    }
+    .phrase-chip:active { transform: scale(0.97); }
+    .phrase-chip.done {
+      background: #e8f5e9;
+      border-color: #66bb6a;
+    }
+    .phrase-chip.done .check {
+      background: #4caf50;
+      border-color: #4caf50;
+      color: white;
+    }
+    .phrase-chip.done .phrase-text {
+      color: #2e7d32;
+      text-decoration: line-through;
+      text-decoration-color: #a5d6a7;
+    }
+    .challenge-progress {
+      margin-top: 1.1rem;
+      background: #f0f0f0;
+      border-radius: 999px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--navy), var(--red));
+      border-radius: 999px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+    .progress-label {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 0.5rem;
+    }
+    .sticker-earned {
+      display: none;
+      text-align: center;
+      margin-top: 1rem;
+      padding: 0.85rem;
+      background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+      border: 1.5px solid #a5d6a7;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: #2e7d32;
+      font-weight: 500;
+    }
+    .sticker-earned.show { display: block; }
+
+    /* ── Mascot Cards ── */
+    .mascot-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+    .mascot-card {
+      border-radius: var(--radius);
+      padding: 1.1rem 0.9rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .mascot-card:active { transform: scale(0.98); }
+    .mascot-card.blue-edition {
+      background: linear-gradient(145deg, #e8ecf8, #d0d8f0);
+      border: 1.5px solid rgba(0,35,149,0.18);
+    }
+    .mascot-card.pink-edition {
+      background: linear-gradient(145deg, #fde8ec, #f8d0d8);
+      border: 1.5px solid rgba(237,41,57,0.18);
+    }
+    .mascot-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin: 0 auto 0.65rem;
+      display: block;
+    }
+    .mascot-img-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      margin: 0 auto 0.65rem;
+    }
+    .blue-edition .mascot-img-placeholder { background: rgba(0,35,149,0.1); }
+    .pink-edition .mascot-img-placeholder { background: rgba(237,41,57,0.1); }
+    .mascot-edition {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.4rem;
+      display: inline-block;
+    }
+    .blue-edition .mascot-edition { background: var(--navy); color: white; }
+    .pink-edition .mascot-edition { background: var(--red); color: white; }
+    .mascot-name {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      margin-bottom: 0.2rem;
+    }
+    .mascot-desc {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    /* ── French Phrase Coach ── */
+    .coach-section {
+      background: linear-gradient(160deg, #001a6e 0%, #002395 60%, #003399 100%);
+      padding: 2.75rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .coach-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+    .coach-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .coach-section .section-label { color: var(--gold-light); }
+    .coach-section .section-title { color: white; }
+    .coach-section .section-desc { color: rgba(255,255,255,0.7); }
+
+    .coach-btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+      margin-bottom: 1.25rem;
+    }
+    .coach-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      color: white;
+      border-radius: 10px;
+      padding: 0.7rem 0.85rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(4px);
+    }
+    .coach-btn:active { transform: scale(0.97); }
+    .coach-btn.active {
+      background: rgba(255,255,255,0.95);
+      border-color: var(--gold-light);
+      color: var(--navy-deep);
+    }
+    .coach-btn .btn-flag { font-size: 0.7rem; opacity: 0.7; display: block; margin-top: 0.15rem; }
+
+    .coach-display {
+      background: rgba(255,255,255,0.97);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      min-height: 170px;
+    }
+    .coach-display.hidden { opacity: 0; transform: translateY(4px); pointer-events: none; }
+    .coach-phrase {
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .coach-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .coach-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      flex-shrink: 0;
+      min-width: 85px;
+      padding-top: 0.05rem;
+    }
+    .coach-value {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+    .coach-pronunciation { color: var(--navy); font-style: italic; }
+    .coach-tip {
+      margin-top: 0.85rem;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, var(--gold-pale), #fff8e0);
+      border-left: 3px solid var(--gold);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .coach-empty {
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      padding: 2rem 0;
+    }
+    .coach-empty .coach-empty-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+
+    /* ── Place Cards ── */
+    .place-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .place-card:active { transform: scale(0.99); }
+    .place-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .place-icon {
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .place-icon.bakery { background: #fff3cd; }
+    .place-icon.restaurant { background: #fce4ec; }
+    .place-icon.cafe { background: #e8f5e9; }
+    .place-icon.cultural { background: #e8ecf8; }
+    .place-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-dark);
+    }
+    .place-desc {
+      font-size: 0.87rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--navy);
+      color: white;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      margin-top: 0.25rem;
+      align-self: flex-start;
+      transition: background 0.18s ease;
+      letter-spacing: 0.02em;
+    }
+    .map-btn:active { background: var(--navy-light); }
+    .map-btn svg { width: 13px; height: 13px; }
+    .map-btn.red { background: var(--red); }
+    .map-btn.red:active { background: #c0001a; }
+    .map-btn.gold { background: var(--gold); color: var(--navy-deep); }
+    .map-btn.gold:active { background: #9a7b25; }
+
+    /* ── French LA Map section ── */
+    .la-map-section {
+      background: var(--cream-dark);
+      padding: 2.75rem 1.25rem;
+    }
+    .la-map-inner { max-width: 680px; margin: 0 auto; }
+
+    .map-search-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .map-search-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--navy);
+      color: white;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.7rem 0.85rem;
+      border-radius: 10px;
+      transition: background 0.18s ease, transform 0.18s ease;
+      letter-spacing: 0.01em;
+      line-height: 1.3;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .map-search-btn:active { transform: scale(0.97); background: var(--navy-light); }
+    .map-search-btn .msb-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .map-search-btn.red-btn { background: var(--red); }
+    .map-search-btn.red-btn:active { background: #c0001a; }
+    .map-search-btn.gold-btn { background: var(--gold); color: var(--navy-deep); }
+    .map-search-btn.gold-btn:active { background: #9a7b25; }
+
+    .la-section-sub {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Destinations ── */
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    .dest-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.25rem;
+      box-shadow: var(--shadow);
+      border-left: 3px solid transparent;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+    .dest-card:nth-child(3n+1) { border-left-color: var(--navy); }
+    .dest-card:nth-child(3n+2) { border-left-color: var(--red); }
+    .dest-card:nth-child(3n+3) { border-left-color: var(--gold); }
+    .dest-emoji { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .dest-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-dark);
+      margin-bottom: 0.25rem;
+    }
+    .dest-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-bottom: 0.35rem;
+    }
+    .tag-must { background: #e8ecf8; color: var(--navy); }
+    .tag-coast { background: #fce4ec; color: #c62828; }
+    .tag-culture { background: #f3e5f5; color: #6a1b9a; }
+    .tag-food { background: #e8f5e9; color: #2e7d32; }
+    .tag-history { background: #fff3e0; color: #e65100; }
+    .dest-desc { font-size: 0.86rem; color: var(--text-mid); line-height: 1.5; }
+
+    /* ── Closing ── */
+    .closing {
+      background: linear-gradient(160deg, #001a6e 0%, #002395 60%, #003399 100%);
+      color: white;
+      padding: 3.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .closing::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+    .closing::after {
+      content: '';
+      position: absolute;
+      top: -50px; right: -50px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(237,41,57,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .closing-inner { position: relative; z-index: 1; }
+    .closing-flag { font-size: 3rem; margin-bottom: 1rem; }
+    .closing h2 {
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+    .closing-sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 1.5rem;
+    }
+    .closing-vive {
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 0.04em;
+    }
+    .closing-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0 0;
+    }
+    .closing-dots span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+    }
+    .closing-dots span:nth-child(1) { background: rgba(0,35,149,0.8); }
+    .closing-dots span:nth-child(2) { background: rgba(255,255,255,0.6); }
+    .closing-dots span:nth-child(3) { background: rgba(237,41,57,0.8); }
+
+    /* ── Footer ── */
+    .footer {
+      background: #0d0d1a;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      font-size: 0.72rem;
+      padding: 1rem 1.25rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Responsive ── */
+    @media (min-width: 480px) {
+      .phrase-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .coach-btn-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    @media (min-width: 600px) {
+      .map-search-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Tricolor top bar -->
+<div class="tricolor"></div>
+
+<!-- Nav strip -->
+<div class="nav-strip">
+  <span class="flag">🇫🇷</span>
+  <span>SMC International Day 2026 &nbsp;·&nbsp; May 26</span>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-orb-red"></div>
+  <div class="hero-orb-gold"></div>
+  <div class="hero-orb-center"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">France Table &nbsp;·&nbsp; Santa Monica College</div>
+    <h1>Bienvenue à la<br>France Table 🇫🇷</h1>
+    <p class="hero-sub">Welcome to the France Table at SMC International Day 2026.</p>
+    <p class="hero-french">
+      La France vous souhaite la bienvenue —<br>
+      <em>France welcomes you.</em>
+    </p>
+    <div class="hero-cta">Scan · Learn 3 Phrases · Get Certified</div>
+    <div class="hero-divider">
+      <span></span>
+      <em>Liberté · Égalité · Fraternité</em>
+      <span></span>
+    </div>
+  </div>
+  <div class="hero-frame"></div>
+</section>
+
+<div class="tricolor"></div>
+
+<!-- ═══ FRENCH SPEAKER CHALLENGE ═══ -->
+<div class="section">
+  <div class="section-label">Activity</div>
+  <div class="section-title">🎙️ French Speaker Challenge</div>
+  <p class="section-desc">
+    Think you can speak French? Tap the phrases you say out loud. Say <strong>3 or more</strong> with confidence and earn a <strong>Certified French Speaker</strong> sticker!
+  </p>
+
+  <div class="challenge-card">
+    <div class="challenge-intro">
+      <div class="trophy">🏅</div>
+      <p><strong>How to earn your sticker:</strong> Say 3 French words or phrases out loud with confidence to the table host. Tap each one as you say it!</p>
+    </div>
+
+    <div class="phrase-grid" id="phraseGrid">
+      <!-- Phrases injected by JS -->
+    </div>
+
+    <div class="challenge-progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Tap phrases as you say them — 0 / 13</div>
+
+    <div class="sticker-earned" id="stickerEarned">
+      🌟 Félicitations! You've earned your Certified French Speaker sticker! Ask the table host to claim it.
+    </div>
+  </div>
+
+  <!-- Mascot Cards -->
+  <div class="mascot-row">
+    <div class="mascot-card blue-edition">
+      <img
+        src="assets/certified_french_speaker_boy.png"
+        alt="Certified French Speaker — Blue Edition"
+        class="mascot-img"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+      >
+      <div class="mascot-img-placeholder" style="display:none;">🧑‍🎨</div>
+      <span class="mascot-edition">Blue Edition</span>
+      <div class="mascot-name">Beret Boy 🥐</div>
+      <div class="mascot-desc">Certified French Speaker — with a beret and a fresh croissant</div>
+    </div>
+    <div class="mascot-card pink-edition">
+      <img
+        src="assets/certified_french_speaker_girl.png"
+        alt="Certified French Speaker — Pink Edition"
+        class="mascot-img"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+      >
+      <div class="mascot-img-placeholder" style="display:none;">👩‍🎨</div>
+      <span class="mascot-edition">Pink Edition</span>
+      <div class="mascot-name">Beret Girl 🇫🇷</div>
+      <div class="mascot-desc">Certified French Speaker — with a beret and the French flag</div>
+    </div>
+  </div>
+</div>
+
+<div class="stripe-divider"></div>
+
+<!-- ═══ FRENCH PHRASE COACH ═══ -->
+<section class="coach-section">
+  <div class="coach-inner">
+    <div class="section-label">Interactive</div>
+    <div class="section-title">💬 French Phrase Coach</div>
+    <p class="section-desc">Tap a phrase to hear how to say it and get a coaching tip.</p>
+
+    <div class="coach-btn-grid" id="coachBtnGrid">
+      <!-- Buttons injected by JS -->
+    </div>
+
+    <div class="coach-display" id="coachDisplay">
+      <div class="coach-empty">
+        <span class="coach-empty-icon">🗣️</span>
+        Tap a phrase above to start coaching.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe-divider"></div>
+
+<!-- ═══ FRENCH BAKERIES ═══ -->
+<div class="section">
+  <div class="section-label">Near Santa Monica</div>
+  <div class="section-title">🥐 French Bakeries to Try</div>
+  <p class="section-desc">Authentic French pastries, croissants, and baguettes just minutes away.</p>
+
+  <div class="place-card">
+    <div class="place-header">
+      <div class="place-icon bakery">🥖</div>
+      <div>
+        <div class="place-name">Petitgrain Boulangerie</div>
+      </div>
+    </div>
+    <div class="place-desc">
+      A beloved neighborhood boulangerie bringing authentic Parisian bread and pastries to the westside. Known for their hand-crafted sourdough, buttery croissants, and classic pain au chocolat.
+    </div>
+    <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Petitgrain+Boulangerie+Los+Angeles" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      View on Google Maps
+    </a>
+  </div>
+
+  <div class="place-card">
+    <div class="place-header">
+      <div class="place-icon bakery">🧁</div>
+      <div>
+        <div class="place-name">The Place To Be</div>
+      </div>
+    </div>
+    <div class="place-desc">
+      A charming French-inspired café and bakery with a warm, Parisian ambiance. Their freshly baked goods, tartines, and café au lait make it feel like a morning in Paris.
+    </div>
+    <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=The+Place+To+Be+Santa+Monica" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      View on Google Maps
+    </a>
+  </div>
+
+  <div class="place-card">
+    <div class="place-header">
+      <div class="place-icon bakery">🍰</div>
+      <div>
+        <div class="place-name">Artelice Pâtisserie</div>
+      </div>
+    </div>
+    <div class="place-desc">
+      An exquisite French pastry shop showcasing the art of pâtisserie — elegant éclairs, macarons, mille-feuille, and seasonal tarts crafted with classical French technique.
+    </div>
+    <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Artelice+Patisserie+Santa+Monica" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      View on Google Maps
+    </a>
+  </div>
+</div>
+
+<div class="stripe-divider"></div>
+
+<!-- ═══ FRENCH RESTAURANTS ═══ -->
+<div class="section">
+  <div class="section-label">Near Santa Monica</div>
+  <div class="section-title">🍷 French Restaurants to Try</div>
+  <p class="section-desc">Experience the flavors of France right here in Los Angeles.</p>
+
+  <div class="place-card">
+    <div class="place-header">
+      <div class="place-icon restaurant">🥩</div>
+      <div>
+        <div class="place-name">Pasjoli</div>
+      </div>
+    </div>
+    <div class="place-desc">
+      A critically acclaimed French bistro in Santa Monica helmed by Chef Dave Beran. Elevated bistro classics — duck press tableside, steak frites, and refined seasonal menus in a lively, intimate setting.
+    </div>
+    <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Pasjoli+Santa+Monica" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      View on Google Maps
+    </a>
+  </div>
+
+  <div class="place-card">
+    <div class="place-header">
+      <div class="place-icon restaurant">✨</div>
+      <div>
+        <div class="place-name">MUSE Santa Monica</div>
+      </div>
+    </div>
+    <div class="place-desc">
+      A sophisticated French-influenced restaurant offering an elegant dining experience steps from the ocean. Beautiful presentation, curated wine list, and a menu that celebrates the best of French culinary tradition.
+    </div>
+    <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=MUSE+Santa+Monica+restaurant" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      View on Google Maps
+    </a>
+  </div>
+</div>
+
+<div class="stripe-divider"></div>
+
+<!-- ═══ FRENCH LA MAP ═══ -->
+<section class="la-map-section">
+  <div class="la-map-inner">
+    <div class="section-label">Explore Los Angeles</div>
+    <div class="section-title">🗺️ French LA Map 🇫🇷</div>
+    <p class="section-desc">Discover French culture, food, and community across Los Angeles. Tap any button to open in Google Maps.</p>
+
+    <div class="la-section-sub">Search nearby</div>
+    <div class="map-search-grid">
+      <a class="map-search-btn" href="https://www.google.com/maps/search/french+bakeries+near+Santa+Monica" target="_blank" rel="noopener">
+        <span class="msb-icon">🥐</span>
+        French Bakeries near Santa Monica
+      </a>
+      <a class="map-search-btn red-btn" href="https://www.google.com/maps/search/french+restaurants+near+Santa+Monica" target="_blank" rel="noopener">
+        <span class="msb-icon">🍷</span>
+        French Restaurants near Santa Monica
+      </a>
+      <a class="map-search-btn gold-btn" href="https://www.google.com/maps/search/french+cafes+in+Los+Angeles" target="_blank" rel="noopener">
+        <span class="msb-icon">☕</span>
+        French Cafés in Los Angeles
+      </a>
+      <a class="map-search-btn" href="https://www.google.com/maps/search/Alliance+Française+de+Los+Angeles" target="_blank" rel="noopener">
+        <span class="msb-icon">🏛️</span>
+        Alliance Française de Los Angeles
+      </a>
+      <a class="map-search-btn red-btn" href="https://www.google.com/maps/search/French+Consulate+Los+Angeles" target="_blank" rel="noopener">
+        <span class="msb-icon">🇫🇷</span>
+        French Consulate Los Angeles
+      </a>
+      <a class="map-search-btn gold-btn" href="https://www.google.com/maps/search/french+cultural+places+Los+Angeles" target="_blank" rel="noopener">
+        <span class="msb-icon">🎭</span>
+        French Cultural Places in LA
+      </a>
+    </div>
+
+    <div class="la-section-sub">Featured spots</div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-icon bakery">🥖</div>
+        <div><div class="place-name">Petitgrain Boulangerie</div></div>
+      </div>
+      <div class="place-desc">Authentic Parisian breads and pastries on the westside.</div>
+      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Petitgrain+Boulangerie+Los+Angeles" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        View on Google Maps
+      </a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-icon cafe">☕</div>
+        <div><div class="place-name">The Place To Be Santa Monica</div></div>
+      </div>
+      <div class="place-desc">French-inspired café with Parisian charm and freshly baked goods.</div>
+      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=The+Place+To+Be+Santa+Monica" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        View on Google Maps
+      </a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-icon bakery">🍰</div>
+        <div><div class="place-name">Artelice Pâtisserie</div></div>
+      </div>
+      <div class="place-desc">Exquisite éclairs, macarons, and mille-feuille with classical French technique.</div>
+      <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Artelice+Patisserie+Santa+Monica" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        View on Google Maps
+      </a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-icon restaurant">🥩</div>
+        <div><div class="place-name">Pasjoli Santa Monica</div></div>
+      </div>
+      <div class="place-desc">Critically acclaimed French bistro with elevated classics by Chef Dave Beran.</div>
+      <a class="map-btn red" href="https://www.google.com/maps/search/?api=1&query=Pasjoli+Santa+Monica" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        View on Google Maps
+      </a>
+    </div>
+
+    <div class="place-card">
+      <div class="place-header">
+        <div class="place-icon restaurant">✨</div>
+        <div><div class="place-name">MUSE Santa Monica</div></div>
+      </div>
+      <div class="place-desc">Sophisticated French-influenced dining steps from the Pacific Ocean.</div>
+      <a class="map-btn red" href="https://www.google.com/maps/search/?api=1&query=MUSE+Santa+Monica+restaurant" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        View on Google Maps
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="stripe-divider"></div>
+
+<!-- ═══ FIRST TRIP TO FRANCE ═══ -->
+<div class="section">
+  <div class="section-label">Travel Guide</div>
+  <div class="section-title">✈️ Your First Trip to France</div>
+  <p class="section-desc">
+    Planning your first visit? Here are the must-see destinations — from the iconic capital to the glamorous Riviera.
+  </p>
+
+  <div class="destinations-grid">
+    <div class="dest-card">
+      <div class="dest-emoji">🗼</div>
+      <div>
+        <div class="dest-name">Paris</div>
+        <span class="dest-tag tag-must">Must Visit</span>
+        <div class="dest-desc">The City of Light. See the Eiffel Tower, walk along the Seine, explore the Louvre, and sip café au lait at a sidewalk terrace. Paris is always a good idea.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-emoji">🌊</div>
+      <div>
+        <div class="dest-name">Nice / French Riviera</div>
+        <span class="dest-tag tag-coast">Côte d'Azur</span>
+        <div class="dest-desc">Turquoise Mediterranean waters, the famous Promenade des Anglais, colorful Vieille Ville, and incredible cuisine. The gateway to the French Riviera.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-emoji">🎬</div>
+      <div>
+        <div class="dest-name">Cannes</div>
+        <span class="dest-tag tag-coast">Côte d'Azur</span>
+        <div class="dest-desc">Home of the world-famous Film Festival. Stroll the Boulevard de la Croisette, browse the Marché Forville, and enjoy the glittering coastline.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-emoji">🏎️</div>
+      <div>
+        <div class="dest-name">Monaco</div>
+        <span class="dest-tag tag-coast">Principauté</span>
+        <div class="dest-desc">The tiny principality with big glamour. Visit the Casino de Monte-Carlo, the Prince's Palace, and the Formula 1 circuit winding through the streets.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-emoji">⛵</div>
+      <div>
+        <div class="dest-name">Saint-Tropez</div>
+        <span class="dest-tag tag-coast">Côte d'Azur</span>
+        <div class="dest-desc">The ultimate chic French Riviera village. Sandy beaches, a picturesque harbor packed with yachts, charming cobblestone streets, and legendary summer energy.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-emoji">🍷</div>
+      <div>
+        <div class="dest-name">Bordeaux</div>
+        <span class="dest-tag tag-food">Wine &amp; Food</span>
+        <div class="dest-desc">The wine capital of the world. Stunning 18th-century architecture, world-class vineyards, and the finest Cabernet Sauvignon and Merlot blends.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-emoji">🍽️</div>
+      <div>
+        <div class="dest-name">Lyon</div>
+        <span class="dest-tag tag-food">Gastronomy</span>
+        <div class="dest-desc">France's culinary capital — home of legendary bouchon restaurants, Paul Bocuse's legacy, and a UNESCO-listed old town full of hidden traboules.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-emoji">🏰</div>
+      <div>
+        <div class="dest-name">Strasbourg</div>
+        <span class="dest-tag tag-culture">Alsace</span>
+        <div class="dest-desc">A fairytale city on the Rhine, blending French elegance and German charm. The stunning Gothic Cathedral, magical Christmas Market, and canals of La Petite France.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-emoji">🌅</div>
+      <div>
+        <div class="dest-name">Mont Saint-Michel</div>
+        <span class="dest-tag tag-history">Iconic</span>
+        <div class="dest-desc">One of the world's most photographed sites — a medieval abbey perched on a rocky island rising from the sea. Truly magical at high tide, especially at sunset.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tricolor"></div>
+
+<!-- ═══ CLOSING ═══ -->
+<section class="closing">
+  <div class="closing-inner">
+    <div class="closing-flag">🇫🇷</div>
+    <h2>Merci for visiting the France Table!</h2>
+    <p class="closing-sub">
+      We hope you leave with a little more French in your heart —<br>
+      <em>and maybe a croissant in your future.</em>
+    </p>
+    <div class="closing-vive">Vive la France 🇫🇷</div>
+    <div class="closing-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+  France Table &nbsp;·&nbsp; SMC International Day 2026 &nbsp;·&nbsp; May 26, 2026
+</div>
+
+<div class="tricolor"></div>
+
+<script>
+  // ── French Speaker Challenge ──
+  const phrases = [
+    { text: "Bonjour", note: "Hello" },
+    { text: "Merci beaucoup", note: "Thank you very much" },
+    { text: "Je m'appelle…", note: "My name is…" },
+    { text: "J'aime…", note: "I love…" },
+    { text: "Oh là là", note: "Oh my!" },
+    { text: "Vive la France", note: "Long live France" },
+    { text: "Magnifique", note: "Magnificent" },
+    { text: "Louis Vuitton", note: "Iconic fashion house" },
+    { text: "Christian Dior", note: "Iconic fashion house" },
+    { text: "Chanel", note: "Iconic fashion house" },
+    { text: "Je voudrais un croissant", note: "I'd like a croissant" },
+    { text: "Enchanté(e)", note: "Pleased to meet you" },
+    { text: "Bisous bisous", note: "Kisses (cheek kiss greeting)" },
+  ];
+
+  const grid = document.getElementById('phraseGrid');
+  const bar = document.getElementById('progressBar');
+  const label = document.getElementById('progressLabel');
+  const earned = document.getElementById('stickerEarned');
+  const total = phrases.length;
+  let done = 0;
+
+  phrases.forEach((p, i) => {
+    const chip = document.createElement('button');
+    chip.className = 'phrase-chip';
+    chip.setAttribute('aria-label', p.text + ' — ' + p.note);
+    chip.innerHTML = `
+      <span class="check" id="check-${i}">✓</span>
+      <span class="phrase-text">${p.text}</span>
+    `;
+    chip.addEventListener('click', () => {
+      if (chip.classList.toggle('done')) {
+        done++;
+      } else {
+        done--;
+      }
+      const pct = Math.round((done / total) * 100);
+      bar.style.width = pct + '%';
+      label.textContent = `${done} / ${total} phrases said${done >= 3 ? ' — 🎉 Sticker unlocked!' : ''}`;
+      earned.classList.toggle('show', done >= 3);
+    });
+    grid.appendChild(chip);
+  });
+
+  // ── French Phrase Coach ──
+  const coachPhrases = [
+    {
+      phrase: "Bonjour",
+      meaning: "Hello / Good day",
+      pronunciation: "bon-ZHOOR",
+      tip: "Start every French conversation with Bonjour. It matters — skipping it is considered rude."
+    },
+    {
+      phrase: "Merci beaucoup",
+      meaning: "Thank you very much",
+      pronunciation: "mair-SEE boh-KOO",
+      tip: "Add beaucoup for extra warmth. The French appreciate sincerity in gratitude."
+    },
+    {
+      phrase: "Je t'aime",
+      meaning: "I love you",
+      pronunciation: "zhuh TEM",
+      tip: "The most romantic phrase in the most romantic language. Say it with your heart."
+    },
+    {
+      phrase: "Oh là là",
+      meaning: "Oh my! / Wow!",
+      pronunciation: "oh lah LAH",
+      tip: "It can mean surprise, admiration, or even mild shock. Context is everything — say it with confidence."
+    },
+    {
+      phrase: "Je voudrais un croissant",
+      meaning: "I would like a croissant",
+      pronunciation: "zhuh voo-DREH uh kwah-SAHN",
+      tip: "The most essential French sentence. Master this and you'll never go hungry in Paris."
+    },
+    {
+      phrase: "Vive la France",
+      meaning: "Long live France",
+      pronunciation: "veev lah FRAHNS",
+      tip: "Say it with passion and pride — this is a rallying cry with 200+ years of history behind it."
+    },
+    {
+      phrase: "Bisous bisous",
+      meaning: "Kisses (cheek-kiss greeting)",
+      pronunciation: "bee-ZOO bee-ZOO",
+      tip: "The classic French greeting — two cheek kisses. The phrase itself is warm and affectionate."
+    },
+    {
+      phrase: "Enchanté(e)",
+      meaning: "Pleased to meet you",
+      pronunciation: "on-shon-TAY",
+      tip: "Add the -e ending if you are female: enchantée. It signals you know the language — they'll be impressed."
+    }
+  ];
+
+  const btnGrid = document.getElementById('coachBtnGrid');
+  const display = document.getElementById('coachDisplay');
+  let activeBtn = null;
+
+  coachPhrases.forEach((p, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'coach-btn';
+    btn.innerHTML = `${p.phrase}<span class="btn-flag">🇫🇷 tap to coach</span>`;
+    btn.addEventListener('click', () => {
+      if (activeBtn) activeBtn.classList.remove('active');
+      if (activeBtn === btn) {
+        activeBtn = null;
+        display.innerHTML = `<div class="coach-empty"><span class="coach-empty-icon">🗣️</span>Tap a phrase above to start coaching.</div>`;
+        return;
+      }
+      btn.classList.add('active');
+      activeBtn = btn;
+      display.classList.add('hidden');
+      setTimeout(() => {
+        display.innerHTML = `
+          <div class="coach-phrase">${p.phrase}</div>
+          <div class="coach-row">
+            <span class="coach-label">Meaning</span>
+            <span class="coach-value">${p.meaning}</span>
+          </div>
+          <div class="coach-row">
+            <span class="coach-label">Pronounce</span>
+            <span class="coach-value coach-pronunciation">${p.pronunciation}</span>
+          </div>
+          <div class="coach-tip">💡 ${p.tip}</div>
+        `;
+        display.classList.remove('hidden');
+      }, 120);
+    });
+    btnGrid.appendChild(btn);
+  });
+</script>
+
+</body>
+</html>
