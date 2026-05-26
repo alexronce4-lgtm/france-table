@@ -865,7 +865,7 @@
     <div class="cert-date">May 26, 2026 &nbsp;·&nbsp; Santa Monica College</div>
     <div class="cert-bottom-bar"></div>
     <div class="cert-actions">
-      <button class="cert-btn print" onclick="window.print()">🖨️ Save / Print</button>
+      <button class="cert-btn print" onclick="printCert()">🖨️ Save / Print</button>
       <button class="cert-btn close" onclick="document.getElementById('certOverlay').classList.remove('show')">✕ Close</button>
     </div>
     <div class="cert-share" id="certShare">
@@ -940,6 +940,16 @@
     selectedMascot = choice;
     document.getElementById('choiceBlue').className = 'mascot-choice-btn' + (choice === 'blue' ? ' active-blue' : '');
     document.getElementById('choicePink').className = 'mascot-choice-btn' + (choice === 'pink' ? ' active-pink' : '');
+  }
+
+  function printCert() {
+    var toHide = document.querySelectorAll('.cert-share, .cert-actions');
+    toHide.forEach(function(el){ el.style.display = 'none'; });
+    window.addEventListener('afterprint', function restore() {
+      toHide.forEach(function(el){ el.style.display = ''; });
+      window.removeEventListener('afterprint', restore);
+    });
+    window.print();
   }
 
   function showCertificate() {
