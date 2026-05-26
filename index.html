@@ -871,7 +871,7 @@
     <div class="cert-share" id="certShare">
       <div class="cert-share-label">Share your certificate</div>
       <div class="cert-share-btns">
-        <button class="csb csb-linkedin csb-full" id="csbLinkedIn" onclick="shareCert('linkedin')">in&nbsp; Post on LinkedIn with image</button>
+        <a class="csb csb-linkedin csb-full" href="https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=Certified+French+Speaker&organizationName=SMC+International+Day+2026&issueYear=2026&issueMonth=5&certUrl=https%3A%2F%2Ffrance-table.vercel.app" target="_blank" rel="noopener">in&nbsp; Add to LinkedIn Profile</a>
         <button class="csb csb-imsg"     id="csbImsg"    onclick="shareCert('imsg')">💬 iMessage</button>
         <button class="csb csb-insta"    id="csbInsta"   onclick="shareCert('insta')">📸 Instagram</button>
         <button class="csb csb-snap"     id="csbSnap"    onclick="shareCert('snap')">👻 Snapchat</button>
@@ -1008,17 +1008,6 @@
       window.open('https://mail.google.com/mail/?view=cm'
         + '&su=' + encodeURIComponent('Certified French Speaker 🇫🇷')
         + '&body=' + encodeURIComponent(text + '\n\n' + siteUrl), '_blank');
-      return;
-    }
-
-    // --- LinkedIn: Add Certification to profile ---
-    if (platform === 'linkedin') {
-      var liUrl = 'https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME'
-        + '&name=' + encodeURIComponent('Certified French Speaker')
-        + '&organizationName=' + encodeURIComponent('SMC International Day 2026')
-        + '&issueYear=2026&issueMonth=5'
-        + '&certUrl=' + encodeURIComponent('https://france-table.vercel.app');
-      window.open(liUrl, '_blank');
       return;
     }
 
