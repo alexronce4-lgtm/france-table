@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#002395">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
   <title>France Table — SMC International Day 2026</title>
   <style>
     :root {
@@ -81,11 +85,42 @@
     .hero h1 { font-size: clamp(1.75rem, 6vw, 2.75rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 0.85rem; line-height: 1.2; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
     .hero-sub { font-size: clamp(0.95rem, 3vw, 1.1rem); color: rgba(255,255,255,0.8); max-width: 480px; margin: 0 auto 1rem; }
     .hero-french { display: inline-block; font-style: italic; color: var(--gold-light); font-size: clamp(0.9rem, 2.5vw, 1.05rem); margin-top: 0.25rem; text-shadow: 0 1px 8px rgba(0,0,0,0.2); }
-    .hero-cta { display: inline-block; margin-top: 1.75rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy-deep); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; padding: 0.65rem 1.5rem; border-radius: 999px; box-shadow: 0 4px 18px rgba(184,151,58,0.35); text-transform: uppercase; }
+    .hero-cta { display: inline-block; margin-top: 1.75rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy-deep); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; padding: 0.65rem 1.5rem; border-radius: 999px; box-shadow: 0 4px 18px rgba(184,151,58,0.35); text-transform: uppercase; text-decoration: none; cursor: pointer; }
     .hero-divider { display: flex; align-items: center; gap: 0.75rem; justify-content: center; margin-top: 2rem; opacity: 0.35; }
     .hero-divider span { width: 40px; height: 1px; background: white; }
     .hero-divider em { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-style: normal; }
     .hero-frame { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, rgba(184,151,58,0.6) 0%, rgba(255,255,255,0.15) 50%, rgba(184,151,58,0.6) 100%); }
+    .hero-croissant {
+      position: absolute;
+      font-size: clamp(7rem, 28vw, 14rem);
+      opacity: 0.09;
+      pointer-events: none;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      line-height: 1;
+      transform: rotate(-18deg);
+      filter: blur(1px);
+    }
+    .hero-tower {
+      position: absolute;
+      font-size: clamp(10rem, 45vw, 22rem);
+      opacity: 0.07;
+      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -52%);
+      line-height: 1;
+      filter: blur(0.5px);
+    }
+    .hero-credit {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.08em;
+      font-style: italic;
+    }
 
     /* ── Section wrapper ── */
     .section { padding: 2.75rem 1.25rem; max-width: 680px; margin: 0 auto; }
@@ -171,6 +206,22 @@
     .cert-btn:active { opacity: 0.8; }
     .cert-btn.print { background: var(--navy); color: white; }
     .cert-btn.close { background: var(--cream-dark); color: var(--text-dark); }
+    .cert-share { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--cream-dark); }
+    .cert-share-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft); font-weight: 700; margin-bottom: 0.55rem; }
+    .cert-share-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 0.42rem; }
+    .cert-share-hint { font-size: 0.63rem; color: var(--text-soft); text-align: center; margin-top: 0.5rem; line-height: 1.45; }
+    .csb { display: flex; align-items: center; justify-content: center; gap: 0.25rem; padding: 0.52rem 0.4rem; border-radius: 9px; font-size: 0.72rem; font-weight: 700; border: none; cursor: pointer; font-family: inherit; transition: opacity 0.18s; color: white; width: 100%; white-space: nowrap; }
+    .csb:active { opacity: 0.75; }
+    .csb:disabled { opacity: 0.5; cursor: default; }
+    .csb-full     { grid-column: 1 / -1; }
+    .csb-linkedin { background: #0077B5; }
+    .csb-whatsapp { background: #25D366; }
+    .csb-gmail    { background: #EA4335; }
+    .csb-save     { background: #6b7280; }
+    .csb-imsg     { background: #34C759; }
+    .csb-insta    { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); }
+    .csb-snap     { background: #FFFC00; color: #000; }
+    .cert-toast { display: none; margin-top: 0.55rem; padding: 0.55rem 0.7rem; background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; font-size: 0.72rem; color: #166534; line-height: 1.45; text-align: left; }
 
     @media print {
       body > *:not(.cert-overlay) { display: none !important; }
@@ -180,11 +231,6 @@
     }
 
     /* ── Mascot Cards ── */
-    .mascot-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-top: 1.25rem; }
-    .mascot-card { border-radius: var(--radius); padding: 1.1rem 0.9rem; text-align: center; box-shadow: var(--shadow); transition: transform 0.2s ease; }
-    .mascot-card:active { transform: scale(0.98); }
-    .mascot-card.blue-edition { background: linear-gradient(145deg, #e8ecf8, #d0d8f0); border: 1.5px solid rgba(0,35,149,0.18); }
-    .mascot-card.pink-edition { background: linear-gradient(145deg, #fde8ec, #f8d0d8); border: 1.5px solid rgba(237,41,57,0.18); }
     .mascot-img { width: 80px; height: 80px; object-fit: contain; margin: 0 auto 0.65rem; display: block; }
     .mascot-img-placeholder { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; margin: 0 auto 0.65rem; }
     .blue-edition .mascot-img-placeholder { background: rgba(0,35,149,0.1); }
@@ -230,6 +276,9 @@
     .chat-send-btn { background: var(--gold); color: var(--navy-deep); border: none; border-radius: 10px; padding: 0.65rem 1rem; font-size: 0.88rem; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: opacity 0.18s; }
     .chat-send-btn:active { opacity: 0.8; }
     .chat-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .chat-mic-btn { background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); border-radius: 10px; padding: 0.65rem 0.8rem; font-size: 1.1rem; cursor: pointer; line-height: 1; transition: all 0.18s; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: manipulation; flex-shrink: 0; }
+    .chat-mic-btn:active { transform: scale(0.93); }
+    .chat-mic-btn.listening { background: rgba(237,41,57,0.7); border-color: rgba(237,41,57,0.9); animation: micPulse 1.2s ease-in-out infinite; }
 
     /* ── Place Cards ── */
     .place-card { background: var(--card-bg); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -264,20 +313,24 @@
     .la-section-sub { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft); font-weight: 600; margin-bottom: 0.75rem; margin-top: 0.5rem; }
 
     /* ── Destinations ── */
-    .destinations-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
-    .dest-card { background: var(--card-bg); border-radius: var(--radius); padding: 1.15rem 1.25rem; box-shadow: var(--shadow); border-left: 3px solid transparent; display: flex; align-items: flex-start; gap: 0.85rem; }
-    .dest-card:nth-child(3n+1) { border-left-color: var(--navy); }
-    .dest-card:nth-child(3n+2) { border-left-color: var(--red); }
-    .dest-card:nth-child(3n+3) { border-left-color: var(--gold); }
-    .dest-emoji { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
-    .dest-name { font-weight: 700; font-size: 1rem; color: var(--text-dark); margin-bottom: 0.25rem; }
-    .dest-tag { display: inline-block; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px; margin-bottom: 0.35rem; }
+    .destinations-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+    @media (min-width: 600px) { .destinations-grid { grid-template-columns: repeat(3, 1fr); } }
+    .dest-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
+    .dest-photo { width: 100%; height: 120px; object-fit: cover; display: block; background: var(--cream-dark); }
+    .dest-body { padding: 0.7rem 0.8rem 0.8rem; flex: 1; display: flex; flex-direction: column; }
+    .dest-name { font-weight: 800; font-size: 0.85rem; color: var(--text-dark); line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 0.22rem; }
+    .dest-tag { display: inline-block; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding: 0.1rem 0.42rem; border-radius: 999px; margin-bottom: 0.35rem; }
     .tag-must { background: #e8ecf8; color: var(--navy); }
     .tag-coast { background: #fce4ec; color: #c62828; }
     .tag-culture { background: #f3e5f5; color: #6a1b9a; }
     .tag-food { background: #e8f5e9; color: #2e7d32; }
     .tag-history { background: #fff3e0; color: #e65100; }
-    .dest-desc { font-size: 0.86rem; color: var(--text-mid); line-height: 1.5; }
+    .dest-desc { font-size: 0.73rem; color: var(--text-soft); line-height: 1.5; flex: 1; margin-bottom: 0.5rem; }
+    .dest-btns { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: auto; }
+    .dest-video-btn { display: inline-flex; align-items: center; gap: 0.22rem; padding: 0.32rem 0.55rem; background: #cc0000; color: white; border-radius: 5px; font-size: 0.65rem; font-weight: 700; text-decoration: none; transition: opacity 0.18s; white-space: nowrap; }
+    .dest-maps-btn { display: inline-flex; align-items: center; gap: 0.22rem; padding: 0.32rem 0.55rem; background: var(--navy); color: white; border-radius: 5px; font-size: 0.65rem; font-weight: 700; text-decoration: none; transition: opacity 0.18s; white-space: nowrap; }
+    .dest-video-btn:active, .dest-maps-btn:active { opacity: 0.75; }
+    .quiz-dest-photo { width: 100%; height: 160px; object-fit: cover; display: block; }
 
     /* ── Closing ── */
     .closing { background: linear-gradient(160deg, #001a6e 0%, #002395 60%, #003399 100%); color: white; padding: 3.5rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
@@ -296,8 +349,123 @@
 
     .footer { background: #0d0d1a; color: rgba(255,255,255,0.4); text-align: center; font-size: 0.72rem; padding: 1rem 1.25rem; letter-spacing: 0.04em; }
 
+    @keyframes micPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(237,41,57,0.6); }
+      70%  { box-shadow: 0 0 0 14px rgba(237,41,57,0); }
+      100% { box-shadow: 0 0 0 0 rgba(237,41,57,0); }
+    }
+
     @media (min-width: 480px) { .phrase-grid { grid-template-columns: 1fr 1fr 1fr; } }
     @media (min-width: 600px) { .map-search-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+    /* ── iPhone / iOS optimizations ── */
+
+    /* Safe area: notch + home indicator */
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .footer { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+
+    /* Prevent iOS auto-zoom on input focus (must be >= 16px) */
+    .name-input,
+    .chat-input { font-size: 16px !important; }
+
+    /* Smooth scroll on iOS */
+    .chat-messages { -webkit-overflow-scrolling: touch; }
+
+    /* Touch targets: minimum 44×44px on mobile */
+    .phrase-chip { min-height: 48px; padding: 0.75rem; }
+    .chat-quick-chip { min-height: 36px; padding: 0.45rem 0.85rem; font-size: 0.85rem; }
+    .chat-send-btn { min-height: 48px; min-width: 80px; font-size: 0.95rem; }
+    .map-search-btn { min-height: 52px; padding: 0.85rem 1rem; }
+    .mascot-choice-btn { min-height: 100px; }
+    .cert-btn { min-height: 48px; font-size: 0.9rem; }
+    .map-btn { min-height: 44px; padding: 0.6rem 1.1rem; font-size: 0.88rem; }
+
+    /* Larger tap area for chips */
+    .coach-quick-chip { min-height: 40px; }
+
+    /* Better hero on small phones */
+    @media (max-width: 390px) {
+      .hero { padding: 3rem 1.25rem 2.75rem; }
+      .hero h1 { font-size: 1.65rem; }
+      .section { padding: 2rem 1rem; }
+      .challenge-card { padding: 1.1rem; }
+      .cert-card { padding: 1.5rem 1.25rem 1.25rem; }
+    }
+
+    /* Fix iOS button default styling */
+    button, input[type="button"] {
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 9px;
+    }
+
+    /* Prevent text size adjustment on rotate */
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+    /* Chat height adapts when iOS keyboard opens */
+    @media (max-height: 600px) {
+      .chat-messages { max-height: 160px; }
+    }
+
+    /* Larger section padding on iPhone notch models */
+    @supports (padding-top: env(safe-area-inset-top)) {
+      .nav-strip { padding-left: max(1.25rem, env(safe-area-inset-left)); padding-right: max(1.25rem, env(safe-area-inset-right)); }
+      .hero { padding-left: max(1.5rem, env(safe-area-inset-left)); padding-right: max(1.5rem, env(safe-area-inset-right)); }
+    }
+
+    /* ── Photo Booth ── */
+    .photocert-card { background: var(--card-bg); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); margin-bottom: 0.85rem; }
+    .photocert-step-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); font-weight: 700; margin-bottom: 0.75rem; }
+    .pc-upload-area { text-align: center; padding: 1.75rem 1rem; border: 2px dashed var(--cream-dark); border-radius: 12px; }
+    .pc-privacy { font-size: 0.73rem; color: var(--text-soft); margin-top: 0.65rem; line-height: 1.5; }
+    .pc-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--cream); border: 1.5px solid var(--cream-dark); border-radius: 9px; padding: 0.6rem 1.1rem; font-size: 0.88rem; font-weight: 600; font-family: inherit; cursor: pointer; color: var(--text-dark); transition: all 0.18s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; -webkit-appearance: none; }
+    .pc-btn.primary { background: var(--navy); color: white; border-color: var(--navy); width: 100%; padding: 0.75rem; font-size: 0.95rem; border-radius: 10px; margin-top: 0.85rem; }
+    .pc-btn:active { opacity: 0.8; transform: scale(0.97); }
+    .pc-modes { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
+    .pc-mode-btn { background: linear-gradient(135deg,#fff8e8,#fff3d0); border: 1.5px solid var(--gold-light); border-radius: 8px; padding: 0.38rem 0.6rem; font-size: 0.78rem; font-weight: 600; font-family: inherit; cursor: pointer; color: var(--text-dark); touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-appearance: none; white-space: nowrap; }
+    .pc-mode-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+    .pc-mode-btn:active { opacity: 0.8; }
+    .pc-overlay-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.35rem; margin-bottom: 0.75rem; }
+    .pc-overlay-thumb { background: var(--cream); border: 2px solid var(--cream-dark); border-radius: 8px; padding: 0.3rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; display: flex; flex-direction: column; align-items: center; gap: 0.15rem; -webkit-appearance: none; }
+    .pc-overlay-thumb img { width: 100%; aspect-ratio: 1; object-fit: contain; pointer-events: none; }
+    .pc-overlay-thumb span { font-size: 0.52rem; color: var(--text-soft); text-align: center; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; display: block; }
+    .pc-overlay-thumb:active { background: var(--cream-dark); }
+    .pc-canvas-wrap { border-radius: 10px; overflow: hidden; background: #e8e8e8; margin-bottom: 0.5rem; }
+    .pc-canvas-wrap canvas { display: block; width: 100%; height: auto; touch-action: none; cursor: grab; }
+    .pc-canvas-hint { font-size: 0.73rem; color: var(--text-soft); text-align: center; margin-bottom: 0.5rem; }
+    .pc-sel-ctrl { display: flex; gap: 0.4rem; justify-content: center; margin-bottom: 0.6rem; background: var(--cream); border-radius: 10px; padding: 0.45rem; border: 1.5px solid var(--cream-dark); }
+    .pc-sel-btn { background: white; border: 1.5px solid var(--cream-dark); border-radius: 8px; padding: 0.35rem 0.65rem; font-size: 1.05rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-appearance: none; font-family: inherit; font-weight: 700; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .pc-sel-btn:active { background: var(--cream-dark); }
+    .pc-sel-btn.danger { color: var(--red); }
+    .pc-row { display: flex; gap: 0.5rem; }
+    .pc-row .pc-btn { flex: 1; }
+    .pc-cert-canvas { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.25); margin-bottom: 0.85rem; }
+    .pc-cert-btns { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    /* ── Quiz ── */
+    .quiz-card { background: var(--card-bg); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
+    .quiz-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; }
+    .quiz-step-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); font-weight: 700; }
+    .quiz-track { flex: 1; height: 5px; background: var(--cream-dark); border-radius: 99px; margin-left: 0.75rem; overflow: hidden; }
+    .quiz-fill { height: 100%; background: linear-gradient(to right, var(--navy), var(--red)); border-radius: 99px; transition: width 0.35s ease; }
+    .quiz-question { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; line-height: 1.35; }
+    .quiz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; }
+    .quiz-opt { background: var(--cream); border: 1.5px solid var(--cream-dark); border-radius: 10px; padding: 0.6rem 0.7rem; font-size: 0.8rem; font-weight: 500; font-family: inherit; cursor: pointer; text-align: left; color: var(--text-dark); transition: all 0.15s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-appearance: none; line-height: 1.3; }
+    .quiz-opt:active { background: var(--navy); color: white; border-color: var(--navy); transform: scale(0.97); }
+    .quiz-result-wrap { border-radius: 12px; overflow: hidden; }
+    .quiz-result-inner { padding: 1.75rem 1.25rem; text-align: center; color: white; }
+    .quiz-dest-emoji { font-size: 3rem; margin-bottom: 0.5rem; line-height: 1; }
+    .quiz-dest-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.3rem; opacity: 0.85; }
+    .quiz-dest-name { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.15rem; line-height: 1; }
+    .quiz-dest-tagline { font-size: 0.88rem; font-style: italic; margin-bottom: 0.9rem; opacity: 0.9; }
+    .quiz-dest-desc { font-size: 0.85rem; line-height: 1.62; opacity: 0.92; margin-bottom: 1rem; }
+    .quiz-dest-spots { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: center; margin-bottom: 1.25rem; }
+    .quiz-dest-spot { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.28); border-radius: 999px; padding: 0.22rem 0.7rem; font-size: 0.74rem; font-weight: 600; }
+    .quiz-retry-btn { background: rgba(255,255,255,0.18); border: 2px solid rgba(255,255,255,0.45); border-radius: 10px; padding: 0.65rem 1.5rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; color: white; font-family: inherit; touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-appearance: none; }
+    .quiz-retry-btn:active { opacity: 0.75; }
   </style>
 </head>
 <body>
@@ -318,16 +486,19 @@
     <h1>Bienvenue à la<br>France Table 🇫🇷</h1>
     <p class="hero-sub">Welcome to the France Table at SMC International Day 2026.</p>
     <p class="hero-french">La France vous souhaite la bienvenue —<br><em>France welcomes you.</em></p>
-    <div class="hero-cta">Scan · Learn 3 Phrases · Get Certified</div>
+    <a class="hero-cta" href="#challenge">Scan · Learn 3 Phrases · Get Certified</a>
     <div class="hero-divider"><span></span><em>Liberté · Égalité · Fraternité</em><span></span></div>
   </div>
   <div class="hero-frame"></div>
+  <div class="hero-tower">🗼</div>
+  <div class="hero-croissant">🥐</div>
+  <div class="hero-credit">Made by Alex Ronce</div>
 </section>
 
 <div class="tricolor"></div>
 
 <!-- ═══ FRENCH SPEAKER CHALLENGE ═══ -->
-<div class="section">
+<div class="section" id="challenge">
   <div class="section-label">Activity</div>
   <div class="section-title">🎙️ French Speaker Challenge</div>
   <p class="section-desc">Think you can speak French? Tap the phrases you say out loud. Say <strong>3 or more</strong> with confidence and earn a <strong>Certified French Speaker</strong> sticker!</p>
@@ -375,20 +546,71 @@
   </div>
 
   <!-- Mascot display cards -->
-  <div class="mascot-row">
-    <div class="mascot-card blue-edition">
-      <img src="assets/certified_french_speaker_boy.png" alt="Blue Edition" class="mascot-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="mascot-img-placeholder" style="display:none;">🧑‍🎨</div>
-      <span class="mascot-edition">Blue Edition</span>
-      <div class="mascot-name">Beret Boy 🥐</div>
-      <div class="mascot-desc">Certified French Speaker — beret and a fresh croissant</div>
+</div>
+
+<div class="stripe-divider"></div>
+
+<!-- ═══ PHOTO BOOTH ═══ -->
+<div class="section" id="photoCertSection">
+  <div class="section-label">Photo Feature</div>
+  <div class="section-title">📸 Photo Booth 🎭</div>
+  <p class="section-desc">Take a selfie, add premium French stickers &amp; frames, and download your Certified French Speaker certificate — all on your device!</p>
+
+  <!-- Step 1: Upload -->
+  <div class="photocert-card" id="pcStep1">
+    <div class="pc-upload-area">
+      <div style="font-size:2.8rem;margin-bottom:0.75rem">📷</div>
+      <input type="file" id="pcFileInput" accept="image/*" capture="user" style="display:none">
+      <button class="pc-btn primary" onclick="document.getElementById('pcFileInput').click()" style="margin-top:0">Take Photo / Upload</button>
+      <p class="pc-privacy">🔒 Your photo stays on your device — nothing is uploaded or stored.</p>
     </div>
-    <div class="mascot-card pink-edition">
-      <img src="assets/certified_french_speaker_girl.png" alt="Pink Edition" class="mascot-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="mascot-img-placeholder" style="display:none;">👩‍🎨</div>
-      <span class="mascot-edition">Pink Edition</span>
-      <div class="mascot-name">Beret Girl 🇫🇷</div>
-      <div class="mascot-desc">Certified French Speaker — beret and the French flag</div>
+  </div>
+
+  <!-- Step 2: Booth editor -->
+  <div class="photocert-card" id="pcStep2" style="display:none">
+    <div class="photocert-step-label">Choose a Mode</div>
+    <div class="pc-modes">
+      <button class="pc-mode-btn" data-mode="cafe"     onclick="applyMode('cafe')">☕ Paris Café</button>
+      <button class="pc-mode-btn" data-mode="napoleon" onclick="applyMode('napoleon')">🎩 Napoleon</button>
+      <button class="pc-mode-btn" data-mode="louis"    onclick="applyMode('louis')">👑 Louis XIV</button>
+      <button class="pc-mode-btn" data-mode="cannes"   onclick="applyMode('cannes')">🎬 Cannes</button>
+      <button class="pc-mode-btn" data-mode="chic"     onclick="applyMode('chic')">💄 Très Chic</button>
+      <button class="pc-mode-btn" data-mode="wine"     onclick="applyMode('wine')">🍷 French Wine</button>
+      <button class="pc-mode-btn" data-mode="louvre"   onclick="applyMode('louvre')">🖼️ Louvre Art</button>
+      <button class="pc-mode-btn" data-mode="tour"     onclick="applyMode('tour')">🚴 Tour de France</button>
+    </div>
+
+    <div class="photocert-step-label">Add Overlays</div>
+    <div class="pc-overlay-grid" id="pcOverlayGrid"></div>
+
+    <div class="pc-canvas-wrap">
+      <canvas id="pcCanvas"></canvas>
+    </div>
+    <p class="pc-canvas-hint">👆 Tap a sticker to select · drag to reposition</p>
+
+    <div class="pc-sel-ctrl" id="pcSelCtrl" style="display:none">
+      <button class="pc-sel-btn" onclick="pcRotateSelected(-15)" title="Rotate left">↺</button>
+      <button class="pc-sel-btn" onclick="pcScaleSelected(0.8)"  title="Shrink">−</button>
+      <button class="pc-sel-btn danger" onclick="pcDeleteSelected()" title="Delete">🗑</button>
+      <button class="pc-sel-btn" onclick="pcScaleSelected(1.25)" title="Grow">+</button>
+      <button class="pc-sel-btn" onclick="pcRotateSelected(15)"  title="Rotate right">↻</button>
+    </div>
+
+    <div class="pc-row" style="margin-bottom:0.85rem">
+      <button class="pc-btn" onclick="pcUndoLast()">↩ Undo</button>
+      <button class="pc-btn" onclick="pcClearAll()">🗑 Clear All</button>
+    </div>
+
+    <button class="pc-btn primary" onclick="generateCertificate()">🎓 Generate My Certificate</button>
+  </div>
+
+  <!-- Step 3: Final certificate -->
+  <div class="photocert-card" id="pcStep3" style="display:none">
+    <div class="photocert-step-label">Your Certificate</div>
+    <canvas id="pcCertCanvas" class="pc-cert-canvas"></canvas>
+    <div class="pc-cert-btns">
+      <button class="pc-btn primary" style="margin-top:0" onclick="downloadCertificate()">⬇️ Download Certificate</button>
+      <button class="pc-btn" onclick="resetPhotoCert()">🔄 Try Another Photo</button>
     </div>
   </div>
 </div>
@@ -399,8 +621,8 @@
 <section class="coach-section">
   <div class="coach-inner">
     <div class="section-label">AI Coach</div>
-    <div class="section-title">💬 French Phrase Coach</div>
-    <p class="section-desc">Tap a phrase or type your own question — the coach will help you speak French!</p>
+    <div class="section-title">💬 Parle avec Sophie 🇫🇷</div>
+    <p class="section-desc">Meet Sophie, your French coach from Paris! Tap a phrase or ask her anything — she'll speak to you too. Tap 🎙️ to talk to her!</p>
 
     <div class="chat-quick-chips" id="chatQuickChips"></div>
 
@@ -413,6 +635,7 @@
 
     <div class="chat-input-row">
       <input class="chat-input" id="chatInput" type="text" placeholder="Ask anything in French…" maxlength="200" autocomplete="off">
+      <button class="chat-mic-btn" id="sophieMicBtn" onclick="toggleSophieMic()" title="Parle à Sophie">🎙️</button>
       <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">Send →</button>
     </div>
   </div>
@@ -499,10 +722,10 @@
       <a class="map-search-btn gold-btn" href="https://www.google.com/maps/search/french+cultural+places+Los+Angeles" target="_blank" rel="noopener"><span class="msb-icon">🎭</span>French Cultural Places in LA</a>
     </div>
 
-    <!-- Google Maps embed -->
+    <!-- Google Maps embed (no API key required) -->
     <div class="gmap-container">
       <iframe
-        src="https://www.google.com/maps/embed/v1/search?key=AIzaSyCif-CkmqKCKkauGsI-s55C9r0AM3_dijo&q=french+restaurants+bakeries+cafes+Santa+Monica+CA&zoom=13"
+        src="https://www.google.com/maps?q=french+bakeries+restaurants+Santa+Monica+CA&output=embed"
         allowfullscreen
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
@@ -543,6 +766,27 @@
   </div>
 </section>
 
+<!-- ═══ WHERE SHOULD YOU GO IN FRANCE ═══ -->
+<div class="stripe-divider"></div>
+
+<div class="section" id="quizSection">
+  <div class="section-label">Discover France</div>
+  <div class="section-title">Where Should You Go in France? 🇫🇷</div>
+  <p class="section-desc">Pick your travel vibe and discover your perfect French destination.</p>
+
+  <div class="quiz-card">
+    <div id="quizStep">
+      <div class="quiz-meta">
+        <span class="quiz-step-label" id="quizStepLabel">Question 1 of 5</span>
+        <div class="quiz-track"><div class="quiz-fill" id="quizFill" style="width:0%"></div></div>
+      </div>
+      <div class="quiz-question" id="quizQ"></div>
+      <div class="quiz-opts" id="quizOpts"></div>
+    </div>
+    <div id="quizResult" style="display:none"></div>
+  </div>
+</div>
+
 <div class="stripe-divider"></div>
 
 <!-- ═══ FIRST TRIP TO FRANCE ═══ -->
@@ -552,15 +796,42 @@
   <p class="section-desc">Planning your first visit? Here are the must-see destinations — from the iconic capital to the glamorous Riviera.</p>
 
   <div class="destinations-grid">
-    <div class="dest-card"><div class="dest-emoji">🗼</div><div><div class="dest-name">Paris</div><span class="dest-tag tag-must">Must Visit</span><div class="dest-desc">The City of Light. See the Eiffel Tower, walk along the Seine, explore the Louvre, and sip café au lait at a sidewalk terrace.</div></div></div>
-    <div class="dest-card"><div class="dest-emoji">🌊</div><div><div class="dest-name">Nice / French Riviera</div><span class="dest-tag tag-coast">Côte d'Azur</span><div class="dest-desc">Turquoise Mediterranean waters, the Promenade des Anglais, colorful Vieille Ville, and incredible cuisine.</div></div></div>
-    <div class="dest-card"><div class="dest-emoji">🎬</div><div><div class="dest-name">Cannes</div><span class="dest-tag tag-coast">Côte d'Azur</span><div class="dest-desc">Home of the world-famous Film Festival. Stroll the Boulevard de la Croisette and enjoy the glittering coastline.</div></div></div>
-    <div class="dest-card"><div class="dest-emoji">🏎️</div><div><div class="dest-name">Monaco</div><span class="dest-tag tag-coast">Principauté</span><div class="dest-desc">The tiny principality with big glamour. Casino de Monte-Carlo, the Prince's Palace, and the Formula 1 circuit.</div></div></div>
-    <div class="dest-card"><div class="dest-emoji">⛵</div><div><div class="dest-name">Saint-Tropez</div><span class="dest-tag tag-coast">Côte d'Azur</span><div class="dest-desc">Sandy beaches, a picturesque harbor packed with yachts, charming cobblestone streets, and legendary summer energy.</div></div></div>
-    <div class="dest-card"><div class="dest-emoji">🍷</div><div><div class="dest-name">Bordeaux</div><span class="dest-tag tag-food">Wine &amp; Food</span><div class="dest-desc">The wine capital of the world. Stunning 18th-century architecture and world-class vineyards.</div></div></div>
-    <div class="dest-card"><div class="dest-emoji">🍽️</div><div><div class="dest-name">Lyon</div><span class="dest-tag tag-food">Gastronomy</span><div class="dest-desc">France's culinary capital — legendary bouchon restaurants, Paul Bocuse's legacy, and a UNESCO-listed old town.</div></div></div>
-    <div class="dest-card"><div class="dest-emoji">🏰</div><div><div class="dest-name">Strasbourg</div><span class="dest-tag tag-culture">Alsace</span><div class="dest-desc">A fairytale city blending French elegance and German charm. Gothic Cathedral, Christmas Market, and La Petite France canals.</div></div></div>
-    <div class="dest-card"><div class="dest-emoji">🌅</div><div><div class="dest-name">Mont Saint-Michel</div><span class="dest-tag tag-history">Iconic</span><div class="dest-desc">A medieval abbey perched on a rocky island rising from the sea. Truly magical at high tide and sunset.</div></div></div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/paris.jpg" alt="Paris" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#000d3a,#002395)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Paris 🗼</div><span class="dest-tag tag-must">Must Visit</span><div class="dest-desc">The City of Light. Eiffel Tower, the Louvre, and café au lait on a sidewalk terrace.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Paris+France+travel+cinematic+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Paris,+France" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/nice.jpg" alt="Nice" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#0055aa,#0099ee)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Nice 🌊</div><span class="dest-tag tag-coast">Côte d'Azur</span><div class="dest-desc">Turquoise waters, the Promenade des Anglais, and incredible cuisine.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Nice+France+travel+cinematic+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Nice,+France" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/cannes.jpg" alt="Cannes" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#1a0050,#5500aa)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Cannes 🎬</div><span class="dest-tag tag-coast">Côte d'Azur</span><div class="dest-desc">Home of the world-famous Film Festival and the glittering Croisette.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Cannes+France+cinematic+travel+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Cannes,+France" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/monaco.jpg" alt="Monaco" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#001a4a,#c9a84c)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Monaco 👑</div><span class="dest-tag tag-coast">Principauté</span><div class="dest-desc">Casino de Monte-Carlo, the Prince's Palace, and the Formula 1 circuit.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Monaco+cinematic+travel+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Monaco" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/saint-tropez.jpg" alt="Saint-Tropez" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#003366,#0077cc)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Saint-Tropez ⛵</div><span class="dest-tag tag-coast">Côte d'Azur</span><div class="dest-desc">Sandy beaches, a yacht-packed harbor, and legendary summer energy.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Saint+Tropez+cinematic+travel+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Saint-Tropez,+France" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/bordeaux.jpg" alt="Bordeaux" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#4a0e0e,#7a2f37)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Bordeaux 🍷</div><span class="dest-tag tag-food">Wine &amp; Food</span><div class="dest-desc">The wine capital of the world with stunning 18th-century architecture.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Bordeaux+France+travel+cinematic+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Bordeaux,+France" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/lyon.jpg" alt="Lyon" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#8b1a1a,#c43c3c)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Lyon 🍽️</div><span class="dest-tag tag-food">Gastronomy</span><div class="dest-desc">France's culinary capital — legendary bouchons and a UNESCO-listed old town.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Lyon+France+travel+cinematic+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Lyon,+France" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/strasbourg.jpg" alt="Strasbourg" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#6b3a00,#b87000)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Strasbourg 🏰</div><span class="dest-tag tag-culture">Alsace</span><div class="dest-desc">Gothic Cathedral, Christmas Markets, and the fairytale La Petite France canals.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Strasbourg+Alsace+travel+cinematic+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Strasbourg,+France" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
+    <div class="dest-card">
+      <img class="dest-photo" src="assets/destinations/mont-saint-michel.jpg" alt="Mont Saint-Michel" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#1a2a3a,#2c4a6a)';this.style.height='120px';this.removeAttribute('src')">
+      <div class="dest-body"><div class="dest-name">Mont St-Michel 🌅</div><span class="dest-tag tag-history">Iconic</span><div class="dest-desc">A medieval abbey on a rocky island — magical at high tide and sunset.</div><div class="dest-btns"><a class="dest-video-btn" href="https://www.youtube.com/results?search_query=Mont+Saint+Michel+France+cinematic+travel+edit" target="_blank" rel="noopener">▶ Video</a><a class="dest-maps-btn" href="https://maps.google.com/?q=Mont+Saint-Michel,+France" target="_blank" rel="noopener">📍 Maps</a></div></div>
+    </div>
   </div>
 </div>
 
@@ -577,7 +848,7 @@
   </div>
 </section>
 
-<div class="footer">France Table &nbsp;·&nbsp; SMC International Day 2026 &nbsp;·&nbsp; May 26, 2026</div>
+<div class="footer">France Table &nbsp;·&nbsp; SMC International Day 2026 &nbsp;·&nbsp; May 26, 2026 &nbsp;·&nbsp; Made with 🥐 by Alex Ronce</div>
 <div class="tricolor"></div>
 
 <!-- ═══ CERTIFICATE OVERLAY ═══ -->
@@ -594,8 +865,22 @@
     <div class="cert-date">May 26, 2026 &nbsp;·&nbsp; Santa Monica College</div>
     <div class="cert-bottom-bar"></div>
     <div class="cert-actions">
-      <button class="cert-btn print" onclick="window.print()">🖨️ Print / Save</button>
+      <button class="cert-btn print" onclick="window.print()">🖨️ Save / Print</button>
       <button class="cert-btn close" onclick="document.getElementById('certOverlay').classList.remove('show')">✕ Close</button>
+    </div>
+    <div class="cert-share" id="certShare">
+      <div class="cert-share-label">Share your certificate</div>
+      <div class="cert-share-btns">
+        <button class="csb csb-linkedin csb-full" id="csbLinkedIn" onclick="shareCert('linkedin')">in&nbsp; Post on LinkedIn with image</button>
+        <button class="csb csb-imsg"     id="csbImsg"    onclick="shareCert('imsg')">💬 iMessage</button>
+        <button class="csb csb-insta"    id="csbInsta"   onclick="shareCert('insta')">📸 Instagram</button>
+        <button class="csb csb-snap"     id="csbSnap"    onclick="shareCert('snap')">👻 Snapchat</button>
+        <button class="csb csb-whatsapp" id="csbWA"      onclick="shareCert('whatsapp')">💬 WhatsApp</button>
+        <button class="csb csb-gmail"    onclick="shareCert('gmail')">✉️ Gmail</button>
+        <button class="csb csb-save"     onclick="shareCert('save')">💾 Save PNG</button>
+      </div>
+      <div class="cert-toast" id="certToast"></div>
+      <div class="cert-share-hint">iMessage · Instagram · Snapchat · WhatsApp partagent l'image du certificat directement</div>
     </div>
   </div>
 </div>
@@ -616,6 +901,7 @@
     { text: "Je voudrais un croissant", note: "I'd like a croissant" },
     { text: "Enchanté(e)", note: "Pleased to meet you" },
     { text: "Bisous bisous", note: "Kisses (cheek kiss greeting)" },
+    { text: "Oui oui", note: "Yes yes — très français!" },
   ];
 
   const grid = document.getElementById('phraseGrid');
@@ -669,6 +955,124 @@
     document.getElementById('certOverlay').classList.add('show');
   }
 
+  function showCertToast(msg) {
+    var t = document.getElementById('certToast');
+    if (!t) return;
+    t.innerHTML = msg;
+    t.style.display = 'block';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){ t.style.display = 'none'; }, 6000);
+  }
+
+  async function buildCertBlob() {
+    if (typeof html2canvas === 'undefined') return null;
+    var card = document.getElementById('certOverlay').querySelector('.cert-card');
+    var clone = card.cloneNode(true);
+    clone.querySelectorAll('.cert-share, .cert-actions').forEach(function(el){ el.parentNode.removeChild(el); });
+    // Use absolute (not fixed) to avoid iOS Safari viewport quirks
+    clone.style.cssText = 'position:absolute;top:-99999px;left:-99999px;width:' + card.offsetWidth + 'px;border-radius:20px;background:#fff;box-shadow:none;';
+    document.body.appendChild(clone);
+    await new Promise(function(r){ setTimeout(r, 80); });
+    var blob = null;
+    try {
+      var cvs = await html2canvas(clone, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false, imageTimeout: 8000, allowTaint: false });
+      blob = await new Promise(function(res){ cvs.toBlob(res, 'image/png'); });
+    } catch(e) { console.warn('html2canvas failed', e); }
+    document.body.removeChild(clone);
+    return blob;
+  }
+
+  function downloadBlob(blob) {
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'certified-french-speaker.png';
+    a.click();
+  }
+
+  async function withLoading(btnId, fn) {
+    var btn = document.getElementById(btnId);
+    var orig = btn ? btn.innerHTML : '';
+    if (btn) { btn.innerHTML = '⏳ Generating…'; btn.disabled = true; }
+    try { await fn(); } finally {
+      if (btn) { btn.innerHTML = orig; btn.disabled = false; }
+    }
+  }
+
+  async function shareCert(platform) {
+    var name = document.getElementById('certName').textContent || 'I';
+    var text = name + ' just earned a Certified French Speaker certificate at SMC International Day 2026! 🇫🇷';
+    var siteUrl = 'https://france-table.vercel.app';
+
+    // --- Gmail (no image needed) ---
+    if (platform === 'gmail') {
+      window.open('https://mail.google.com/mail/?view=cm'
+        + '&su=' + encodeURIComponent('Certified French Speaker 🇫🇷')
+        + '&body=' + encodeURIComponent(text + '\n\n' + siteUrl), '_blank');
+      return;
+    }
+
+    // --- LinkedIn: open tab immediately (user-gesture context), then download image ---
+    if (platform === 'linkedin') {
+      var liWin = window.open('https://www.linkedin.com/feed/', '_blank');
+      await withLoading('csbLinkedIn', async function() {
+        var blob = await buildCertBlob();
+        if (blob) {
+          var file = new File([blob], 'certified-french-speaker.png', { type: 'image/png' });
+          if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            if (liWin) liWin.close();
+            await navigator.share({ title: 'Certified French Speaker 🇫🇷', text: text, files: [file] }).catch(function(){});
+          } else {
+            downloadBlob(blob);
+            showCertToast('✅ Certificate saved! In the LinkedIn tab, click "Start a post" → photo icon → select certified-french-speaker.png');
+          }
+        }
+      });
+      return;
+    }
+
+    // --- WhatsApp: image share on mobile, text fallback on desktop ---
+    if (platform === 'whatsapp') {
+      await withLoading('csbWA', async function() {
+        var blob = await buildCertBlob();
+        if (!blob) { window.open('https://wa.me/?text=' + encodeURIComponent(text + ' ' + siteUrl), '_blank'); return; }
+        var file = new File([blob], 'certified-french-speaker.png', { type: 'image/png' });
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ title: 'Certified French Speaker 🇫🇷', text: text, files: [file] }).catch(function(){});
+        } else {
+          window.open('https://wa.me/?text=' + encodeURIComponent(text + ' ' + siteUrl), '_blank');
+        }
+      });
+      return;
+    }
+
+    // --- Save PNG ---
+    if (platform === 'save') {
+      var blob = await buildCertBlob();
+      if (blob) downloadBlob(blob);
+      return;
+    }
+
+    // --- iMessage / Instagram / Snapchat: native share with image file ---
+    var btnIds = { imsg: 'csbImsg', insta: 'csbInsta', snap: 'csbSnap' };
+    var btnId = btnIds[platform] || null;
+    await withLoading(btnId, async function() {
+      var blob = await buildCertBlob();
+      if (!blob) {
+        if (navigator.share) navigator.share({ title: 'Certified French Speaker 🇫🇷', text: text, url: siteUrl }).catch(function(){});
+        return;
+      }
+      var file = new File([blob], 'certified-french-speaker.png', { type: 'image/png' });
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: 'Certified French Speaker 🇫🇷', text: text, files: [file] }).catch(function(){});
+      } else {
+        // Desktop: download + hint
+        downloadBlob(blob);
+        var names = { imsg: 'iMessage', insta: 'Instagram', snap: 'Snapchat' };
+        showCertToast('✅ Image saved! Open ' + (names[platform] || 'the app') + ' and attach the downloaded certificate.');
+      }
+    });
+  }
+
   // ── AI French Phrase Coach ──
   const quickPhrases = ["Bonjour", "Merci beaucoup", "Je t'aime", "Oh là là", "Je voudrais un croissant", "Vive la France", "Bisous bisous", "Enchanté(e)"];
   const chipContainer = document.getElementById('chatQuickChips');
@@ -686,6 +1090,36 @@
   let chatHistory = [];
   let chatStarted = false;
 
+  let frenchVoice = null;
+
+  function loadVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    // Prefer natural/premium French voices in order
+    const preferred = ['Google français', 'Google French', 'Amélie', 'Thomas', 'Audrey', 'Virginie'];
+    for (const name of preferred) {
+      const v = voices.find(v => v.name.includes(name));
+      if (v) { frenchVoice = v; return; }
+    }
+    // Fallback: any fr-FR voice
+    frenchVoice = voices.find(v => v.lang === 'fr-FR') || voices.find(v => v.lang.startsWith('fr')) || null;
+  }
+
+  if (window.speechSynthesis) {
+    loadVoice();
+    window.speechSynthesis.onvoiceschanged = loadVoice;
+  }
+
+  function speak(text) {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    u.rate = 0.88;
+    u.pitch = 1.05;
+    if (frenchVoice) u.voice = frenchVoice;
+    window.speechSynthesis.speak(u);
+  }
+
   function appendMessage(role, text) {
     if (!chatStarted) { chatMessages.innerHTML = ''; chatStarted = true; }
     const msg = document.createElement('div');
@@ -696,6 +1130,15 @@
     const bubble = document.createElement('div');
     bubble.className = 'chat-bubble';
     bubble.textContent = text;
+    if (role === 'coach' && window.speechSynthesis) {
+      const speakBtn = document.createElement('button');
+      speakBtn.textContent = '🔊';
+      speakBtn.title = 'Écouter';
+      speakBtn.style.cssText = 'background:none;border:none;cursor:pointer;font-size:1rem;padding:0.25rem 0 0 0.4rem;opacity:0.6;vertical-align:middle;line-height:1;';
+      speakBtn.onclick = () => speak(text);
+      bubble.appendChild(speakBtn);
+      speak(text);
+    }
     msg.appendChild(avatar);
     msg.appendChild(bubble);
     chatMessages.appendChild(msg);
@@ -751,6 +1194,536 @@
   }
 
   chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChatMessage(); });
+
+  // ── Sophie Voice Input ──
+  let sophieMicRec = null;
+  let sophieMicActive = false;
+
+  // Prevent iOS long-press context menu on mic button
+  document.getElementById('sophieMicBtn').addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    toggleSophieMic();
+  }, { passive: false });
+
+  function toggleSophieMic() {
+    if (sophieMicActive) {
+      if (sophieMicRec) sophieMicRec.stop();
+      return;
+    }
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRec) {
+      appendMessage('coach', "Oh là là, your browser doesn't support voice — try typing instead! Most iPhones work in Safari 🙏");
+      return;
+    }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    sophieMicRec = new SpeechRec();
+    sophieMicRec.lang = 'en-US';
+    sophieMicRec.interimResults = false;
+    sophieMicRec.maxAlternatives = 1;
+    const micBtn = document.getElementById('sophieMicBtn');
+
+    let micTimeout;
+    sophieMicRec.onstart = () => {
+      sophieMicActive = true;
+      micBtn.classList.add('listening');
+      micBtn.textContent = '🔴';
+      chatInput.placeholder = '🎙️ Sophie vous écoute…';
+      micTimeout = setTimeout(() => {
+        if (sophieMicActive) {
+          sophieMicRec.stop();
+          appendMessage('coach', "Voice input works best on a computer — on iPhone, just type your question and I'll answer instantly!");
+        }
+      }, 5000);
+    };
+
+    sophieMicRec.onresult = (e) => {
+      clearTimeout(micTimeout);
+      const transcript = e.results[0][0].transcript;
+      chatInput.value = transcript;
+      sendChatMessage();
+    };
+
+    sophieMicRec.onerror = (e) => {
+      if (e.error !== 'not-allowed') return;
+      appendMessage('coach', "Mon Dieu! I need microphone permission — please allow it in your Safari settings (Settings → Safari → Microphone) and try again!");
+    };
+
+    sophieMicRec.onend = () => {
+      clearTimeout(micTimeout);
+      sophieMicActive = false;
+      micBtn.classList.remove('listening');
+      micBtn.textContent = '🎙️';
+      chatInput.placeholder = 'Ask anything in French…';
+    };
+
+    try { sophieMicRec.start(); } catch(err) {
+      sophieMicActive = false;
+      micBtn.classList.remove('listening');
+      micBtn.textContent = '🎙️';
+      chatInput.placeholder = 'Ask anything in French…';
+      appendMessage('coach', "Oh là là, the mic didn't start — tap it once more, Safari sometimes needs a second try!");
+    }
+  }
+
+  // ─── Photo Booth ──────────────────────────────────────────
+  const PC_OVERLAYS = [
+    { key:'napoleon-hat',          label:'Napoleon',  w:120, h:90  },
+    { key:'louis-xiv-crown',       label:'Crown',     w:110, h:88  },
+    { key:'french-beret',          label:'Beret',     w:100, h:69  },
+    { key:'french-mustache',       label:'Moustache', w:100, h:46  },
+    { key:'croissant',             label:'Croissant', w:90,  h:64  },
+    { key:'eiffel-tower',          label:'Eiffel',    w:55,  h:80  },
+    { key:'french-flag',           label:'Flag',      w:90,  h:60  },
+    { key:'vive-la-france-stamp',  label:'Stamp',     w:80,  h:80  },
+    { key:'cannes-red-carpet',     label:'Cannes',    w:100, h:100 },
+    { key:'luxury-sunglasses',     label:'Lunettes',  w:130, h:61  },
+    { key:'grande-armee-frame',    label:'ArmyFrame', w:160, h:160 },
+    { key:'paris-cafe-frame',      label:'CafeFrame', w:160, h:160 },
+    { key:'wine-glass',            label:'Wine',      w:55,  h:96  },
+    { key:'versailles-palace',     label:'Versailles',w:160, h:85  },
+    { key:'louis-xiv-wig',         label:'Wig',       w:105, h:90  },
+    { key:'baguette',              label:'Baguette',  w:140, h:45  },
+    { key:'champagne-bottle',      label:'Champagne', w:48,  h:115 },
+    { key:'mona-lisa-frame',       label:'MonaLisa',  w:160, h:160 },
+    { key:'tour-de-france-jersey', label:'Jersey',    w:90,  h:97  },
+    { key:'fleur-de-lis-gold',     label:'Fleur',     w:72,  h:96  },
+  ];
+
+  const PC_IMGS = {};
+  PC_OVERLAYS.forEach(function(ov) {
+    var img = new Image();
+    img.onload = function() { if (pcPhoto) pcDraw(); };
+    img.src = '/overlays/' + ov.key + '.svg';
+    PC_IMGS[ov.key] = img;
+  });
+
+  const PC_MODES = {
+    cafe:    { bg:'paris',   items:[{k:'paris-cafe-frame',fill:true},{k:'french-beret',rx:.5,ry:.11},{k:'croissant',rx:.82,ry:.82}] },
+    napoleon:{ bg:'armee',   items:[{k:'grande-armee-frame',fill:true},{k:'napoleon-hat',rx:.5,ry:.11},{k:'french-mustache',rx:.5,ry:.63}] },
+    louis:   { bg:'ville',   items:[{k:'louis-xiv-crown',rx:.5,ry:.11},{k:'louis-xiv-wig',rx:.5,ry:.17},{k:'fleur-de-lis-gold',rx:.1,ry:.82},{k:'fleur-de-lis-gold',rx:.9,ry:.82}] },
+    cannes:  { bg:'fashion', items:[{k:'cannes-red-carpet',fill:true},{k:'luxury-sunglasses',rx:.5,ry:.42},{k:'vive-la-france-stamp',rx:.84,ry:.13}] },
+    chic:    { bg:'fashion', items:[{k:'french-beret',rx:.5,ry:.11},{k:'luxury-sunglasses',rx:.5,ry:.44},{k:'fleur-de-lis-gold',rx:.1,ry:.84}] },
+    wine:    { bg:'paris',   items:[{k:'wine-glass',rx:.14,ry:.7},{k:'champagne-bottle',rx:.86,ry:.62},{k:'baguette',rx:.5,ry:.88}] },
+    louvre:  { bg:'ville',   items:[{k:'mona-lisa-frame',fill:true},{k:'fleur-de-lis-gold',rx:.1,ry:.12},{k:'fleur-de-lis-gold',rx:.9,ry:.12}] },
+    tour:    { bg:'paris',   items:[{k:'tour-de-france-jersey',rx:.5,ry:.32},{k:'french-flag',rx:.12,ry:.18},{k:'eiffel-tower',rx:.85,ry:.36}] },
+  };
+
+  var pcPhoto = null, pcStickers = [], pcBackground = null;
+  var pcSelected = null, pcDragging = null, pcDragOffset = {x:0,y:0};
+
+  var pcCanvas = document.getElementById('pcCanvas');
+  var pcCtx = pcCanvas.getContext('2d');
+
+  (function() {
+    var grid = document.getElementById('pcOverlayGrid');
+    PC_OVERLAYS.forEach(function(ov) {
+      var btn = document.createElement('button');
+      btn.className = 'pc-overlay-thumb';
+      btn.innerHTML = '<img src="/overlays/' + ov.key + '.svg" alt="' + ov.label + '" loading="lazy"><span>' + ov.label + '</span>';
+      btn.addEventListener('click', function() { pcAddOverlay(ov.key); });
+      grid.appendChild(btn);
+    });
+  })();
+
+  function pcAddOverlay(key) {
+    if (!pcPhoto) return;
+    var ov = null;
+    for (var i=0;i<PC_OVERLAYS.length;i++) { if (PC_OVERLAYS[i].key===key){ov=PC_OVERLAYS[i];break;} }
+    if (!ov) return;
+    var W = pcCanvas.width;
+    var s = Math.min(1, 200/Math.max(ov.w,ov.h));
+    var w = Math.round(ov.w*s*W/360), h = Math.round(ov.h*s*W/360);
+    var sticker = {key:key,img:PC_IMGS[key],x:Math.round(W*0.3+Math.random()*W*0.4),y:Math.round(W*0.3+Math.random()*W*0.4),w:w,h:h,rotation:0,id:Date.now()+Math.random(),selected:false};
+    pcStickers.push(sticker);
+    pcSelect(sticker);
+  }
+
+  function pcSelect(s) {
+    pcStickers.forEach(function(st){st.selected=false;});
+    pcSelected = s||null;
+    if (pcSelected) pcSelected.selected=true;
+    document.getElementById('pcSelCtrl').style.display = pcSelected?'flex':'none';
+    pcDraw();
+  }
+
+  function pcRotateSelected(deg) {
+    if (!pcSelected) return;
+    pcSelected.rotation = (pcSelected.rotation||0) + deg*Math.PI/180;
+    pcDraw();
+  }
+
+  function pcScaleSelected(factor) {
+    if (!pcSelected) return;
+    pcSelected.w = Math.max(20,Math.round(pcSelected.w*factor));
+    pcSelected.h = Math.max(20,Math.round(pcSelected.h*factor));
+    pcDraw();
+  }
+
+  function pcDeleteSelected() {
+    if (!pcSelected) return;
+    pcStickers = pcStickers.filter(function(s){return s!==pcSelected;});
+    pcSelected = null;
+    document.getElementById('pcSelCtrl').style.display='none';
+    pcDraw();
+  }
+
+  function pcUndoLast() {
+    if (!pcStickers.length) return;
+    var removed = pcStickers.pop();
+    if (pcSelected===removed){pcSelected=null;document.getElementById('pcSelCtrl').style.display='none';}
+    pcDraw();
+  }
+
+  function pcClearAll() {
+    pcStickers=[]; pcSelected=null; pcBackground=null;
+    document.getElementById('pcSelCtrl').style.display='none';
+    document.querySelectorAll('.pc-mode-btn').forEach(function(b){b.classList.remove('active');});
+    pcDraw();
+  }
+
+  function pcGetPos(cx,cy) {
+    var r=pcCanvas.getBoundingClientRect();
+    return {x:(cx-r.left)*(pcCanvas.width/r.width),y:(cy-r.top)*(pcCanvas.height/r.height)};
+  }
+
+  function pcHitTest(x,y) {
+    for (var i=pcStickers.length-1;i>=0;i--) {
+      var s=pcStickers[i], dx=x-s.x, dy=y-s.y;
+      var cos=Math.cos(-(s.rotation||0)), sin=Math.sin(-(s.rotation||0));
+      var lx=cos*dx-sin*dy, ly=sin*dx+cos*dy;
+      if (Math.abs(lx)<s.w/2+14 && Math.abs(ly)<s.h/2+14) return s;
+    }
+    return null;
+  }
+
+  pcCanvas.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    var t=e.touches[0], pos=pcGetPos(t.clientX,t.clientY), hit=pcHitTest(pos.x,pos.y);
+    if (hit){pcSelect(hit);pcDragging=hit;pcDragOffset={x:pos.x-hit.x,y:pos.y-hit.y};}
+    else pcSelect(null);
+  },{passive:false});
+
+  pcCanvas.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (!pcDragging) return;
+    var t=e.touches[0], pos=pcGetPos(t.clientX,t.clientY);
+    pcDragging.x=pos.x-pcDragOffset.x; pcDragging.y=pos.y-pcDragOffset.y;
+    pcDraw();
+  },{passive:false});
+
+  pcCanvas.addEventListener('touchend', function(){pcDragging=null;});
+
+  pcCanvas.addEventListener('mousedown', function(e) {
+    var pos=pcGetPos(e.clientX,e.clientY), hit=pcHitTest(pos.x,pos.y);
+    if (hit){pcSelect(hit);pcDragging=hit;pcDragOffset={x:pos.x-hit.x,y:pos.y-hit.y};}
+    else pcSelect(null);
+  });
+
+  pcCanvas.addEventListener('mousemove', function(e) {
+    if (!pcDragging) return;
+    var pos=pcGetPos(e.clientX,e.clientY);
+    pcDragging.x=pos.x-pcDragOffset.x; pcDragging.y=pos.y-pcDragOffset.y;
+    pcDraw();
+  });
+
+  pcCanvas.addEventListener('mouseup', function(){pcDragging=null;});
+
+  document.getElementById('pcFileInput').addEventListener('change', function(e) {
+    var file=e.target.files[0]; if (!file) return;
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      var img=new Image();
+      img.onload=function(){
+        pcPhoto=img; pcStickers=[]; pcSelected=null; pcBackground=null;
+        pcCanvas.width=360; pcCanvas.height=360;
+        pcDraw();
+        document.getElementById('pcStep1').style.display='none';
+        document.getElementById('pcStep2').style.display='block';
+        document.getElementById('pcStep3').style.display='none';
+        document.getElementById('pcSelCtrl').style.display='none';
+        document.querySelectorAll('.pc-mode-btn').forEach(function(b){b.classList.remove('active');});
+      };
+      img.src=ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function applyMode(name) {
+    if (!pcPhoto) return;
+    document.querySelectorAll('.pc-mode-btn').forEach(function(b){b.classList.toggle('active',b.dataset.mode===name);});
+    var mode=PC_MODES[name]; if (!mode) return;
+    pcStickers=[]; pcSelected=null; pcBackground=mode.bg;
+    document.getElementById('pcSelCtrl').style.display='none';
+    var W=pcCanvas.width;
+    mode.items.forEach(function(item){
+      var ov=null;
+      for (var i=0;i<PC_OVERLAYS.length;i++){if(PC_OVERLAYS[i].key===item.k){ov=PC_OVERLAYS[i];break;}}
+      if (!ov) return;
+      var w,h;
+      if (item.fill){w=W;h=W;}
+      else{var s=Math.min(1,160/Math.max(ov.w,ov.h));w=Math.round(ov.w*s*W/360);h=Math.round(ov.h*s*W/360);}
+      pcStickers.push({key:item.k,img:PC_IMGS[item.k],x:Math.round((item.fill?0.5:item.rx)*W),y:Math.round((item.fill?0.5:item.ry)*W),w:w,h:h,rotation:0,id:Date.now()+Math.random(),selected:false});
+    });
+    pcDraw();
+  }
+
+  function pcDrawBg(ctx,w,h) {
+    if (!pcBackground) return;
+    ctx.save();
+    if (pcBackground==='paris') {
+      var g=ctx.createLinearGradient(0,0,0,h*0.55);
+      g.addColorStop(0,'rgba(0,8,40,0.58)');g.addColorStop(1,'rgba(0,8,40,0)');
+      ctx.fillStyle=g;ctx.fillRect(0,0,w,h*0.55);
+      ctx.fillStyle='rgba(255,255,210,0.9)';
+      [[.08,.06],[.2,.1],[.35,.04],[.52,.08],[.65,.03],[.78,.1],[.9,.07],[.14,.18],[.46,.14],[.72,.17],[.88,.12]].forEach(function(p){ctx.beginPath();ctx.arc(p[0]*w,p[1]*h,1.3,0,Math.PI*2);ctx.fill();});
+      var eh=h*0.44,ecx=w*0.84,eby=h,ew=eh*0.38;
+      ctx.fillStyle='rgba(0,12,55,0.35)';ctx.beginPath();
+      ctx.moveTo(ecx,eby-eh);ctx.lineTo(ecx-ew*.02,eby-eh*.82);ctx.lineTo(ecx-ew*.14,eby-eh*.78);ctx.lineTo(ecx-ew*.14,eby-eh*.73);ctx.lineTo(ecx-ew*.11,eby-eh*.73);
+      ctx.lineTo(ecx-ew*.27,eby-eh*.43);ctx.lineTo(ecx-ew*.27,eby-eh*.37);ctx.lineTo(ecx-ew*.24,eby-eh*.37);
+      ctx.lineTo(ecx-ew*.48,eby);ctx.lineTo(ecx+ew*.48,eby);
+      ctx.lineTo(ecx+ew*.24,eby-eh*.37);ctx.lineTo(ecx+ew*.27,eby-eh*.37);ctx.lineTo(ecx+ew*.27,eby-eh*.43);
+      ctx.lineTo(ecx+ew*.11,eby-eh*.73);ctx.lineTo(ecx+ew*.14,eby-eh*.73);ctx.lineTo(ecx+ew*.14,eby-eh*.78);ctx.lineTo(ecx+ew*.02,eby-eh*.82);
+      ctx.closePath();ctx.fill();
+    } else if (pcBackground==='armee') {
+      var g=ctx.createLinearGradient(0,0,0,h);
+      g.addColorStop(0,'rgba(18,4,0,0.48)');g.addColorStop(0.55,'rgba(18,4,0,0.18)');g.addColorStop(1,'rgba(18,4,0,0.52)');
+      ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+      var fx=w*0.08,fy=h*0.04,fh=h*0.52,fw=fh*0.55,ffh=fh*0.34;
+      ctx.fillStyle='rgba(0,0,0,0.38)';ctx.fillRect(fx,fy,3,fh);
+      ['rgba(0,35,149,0.5)','rgba(255,255,255,0.44)','rgba(237,41,57,0.5)'].forEach(function(col,i){ctx.fillStyle=col;ctx.fillRect(fx+3+i*fw/3,fy,fw/3,ffh);});
+      ctx.fillStyle='rgba(0,0,0,0.6)';ctx.fillRect(0,h*0.88,w,h*0.12);
+      ctx.fillStyle='#c9a84c';ctx.font='bold '+Math.round(w*0.066)+'px Georgia,serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('LA GRANDE ARMEE',w/2,h*0.942);
+    } else if (pcBackground==='fashion') {
+      ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(0,0,w,h);
+      ctx.strokeStyle='rgba(212,181,99,0.13)';ctx.lineWidth=1;
+      var step=w*0.13;
+      for (var gx=-step;gx<w+step;gx+=step) for (var gy=-step;gy<h+step;gy+=step){
+        ctx.beginPath();ctx.moveTo(gx,gy-step*.5);ctx.lineTo(gx+step*.5,gy);ctx.lineTo(gx,gy+step*.5);ctx.lineTo(gx-step*.5,gy);ctx.closePath();ctx.stroke();
+      }
+      ctx.fillStyle='rgba(0,0,0,0.68)';ctx.fillRect(0,h*0.04,w,h*0.1);ctx.fillRect(0,h*0.86,w,h*0.1);
+      ctx.fillStyle='#d4b563';ctx.font='bold '+Math.round(w*0.062)+'px -apple-system,sans-serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('PARIS FASHION WEEK',w/2,h*0.09);
+      ctx.font='italic '+Math.round(w*0.052)+'px Georgia,serif';ctx.fillText('Louis Vuitton · Dior · Chanel',w/2,h*0.912);
+    } else if (pcBackground==='ville') {
+      ctx.fillStyle='rgba(22,12,35,0.3)';
+      [{x:0,bw:w*.17,bh:h*.38},{x:w*.15,bw:w*.11,bh:h*.46},{x:w*.24,bw:w*.18,bh:h*.4},{x:w*.4,bw:w*.13,bh:h*.5},{x:w*.51,bw:w*.2,bh:h*.38},{x:w*.69,bw:w*.13,bh:h*.44},{x:w*.8,bw:w*.22,bh:h*.36}].forEach(function(b){
+        ctx.fillRect(b.x,h-b.bh,b.bw,b.bh);
+        ctx.beginPath();ctx.moveTo(b.x,h-b.bh);ctx.lineTo(b.x+b.bw*.12,h-b.bh-b.bh*.2);ctx.lineTo(b.x+b.bw*.88,h-b.bh-b.bh*.2);ctx.lineTo(b.x+b.bw,h-b.bh);ctx.closePath();ctx.fill();
+      });
+      var sg=ctx.createLinearGradient(0,0,0,h*0.32);
+      sg.addColorStop(0,'rgba(255,210,100,0.13)');sg.addColorStop(1,'rgba(255,210,100,0)');
+      ctx.fillStyle=sg;ctx.fillRect(0,0,w,h*0.32);
+    }
+    ctx.restore();
+  }
+
+  function pcDraw() {
+    if (!pcPhoto) return;
+    var w=pcCanvas.width,h=pcCanvas.height;
+    pcCtx.clearRect(0,0,w,h);
+    var sc=Math.max(w/pcPhoto.width,h/pcPhoto.height);
+    pcCtx.drawImage(pcPhoto,(pcPhoto.width-w/sc)/2,(pcPhoto.height-h/sc)/2,w/sc,h/sc,0,0,w,h);
+    pcDrawBg(pcCtx,w,h);
+    pcStickers.forEach(function(s){pcDrawOne(pcCtx,s,true);});
+  }
+
+  function pcDrawOne(ctx,s,showSel) {
+    ctx.save();
+    ctx.translate(s.x,s.y);
+    if (s.rotation) ctx.rotate(s.rotation);
+    if (s.img && s.img.complete) {
+      try{ctx.drawImage(s.img,-s.w/2,-s.h/2,s.w,s.h);}catch(e){}
+    } else {
+      ctx.strokeStyle='rgba(200,160,50,0.5)';ctx.lineWidth=2;
+      ctx.strokeRect(-s.w/2,-s.h/2,s.w,s.h);
+    }
+    if (showSel && s.selected) {
+      ctx.strokeStyle='#0af';ctx.lineWidth=2.5;ctx.setLineDash([5,3]);
+      ctx.strokeRect(-s.w/2-5,-s.h/2-5,s.w+10,s.h+10);ctx.setLineDash([]);
+    }
+    ctx.restore();
+  }
+
+  function generateCertificate() {
+    var cert=document.getElementById('pcCertCanvas'),ctx=cert.getContext('2d');
+    var CW=500,CH=700;cert.width=CW;cert.height=CH;
+    var bg=ctx.createLinearGradient(0,0,0,CH);
+    bg.addColorStop(0,'#000d3a');bg.addColorStop(0.5,'#002395');bg.addColorStop(1,'#001a70');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,CW,CH);
+    ctx.fillStyle='#002395';ctx.fillRect(0,0,CW/3,8);
+    ctx.fillStyle='#ffffff';ctx.fillRect(CW/3,0,CW/3,8);
+    ctx.fillStyle='#ED2939';ctx.fillRect(CW*2/3,0,CW/3,8);
+    ctx.strokeStyle='#d4b563';ctx.lineWidth=3;ctx.strokeRect(14,14,CW-28,CH-28);
+    ctx.lineWidth=1;ctx.strokeRect(20,20,CW-40,CH-40);
+    ctx.fillStyle='#d4b563';ctx.font='bold 20px -apple-system,sans-serif';
+    ctx.textAlign='center';ctx.fillText('CERTIFIED FRENCH SPEAKER',CW/2,62);
+    ctx.fillStyle='rgba(255,255,255,0.35)';ctx.font='11px -apple-system,sans-serif';
+    ctx.fillText('— DIPLOME OFFICIEL —',CW/2,84);
+    var PS=260,PX=(CW-PS)/2,PY=105;
+    ctx.fillStyle='rgba(255,255,255,0.07)';ctx.fillRect(PX-6,PY-6,PS+12,PS+12);
+    ctx.strokeStyle='#d4b563';ctx.lineWidth=2;ctx.strokeRect(PX-6,PY-6,PS+12,PS+12);
+    if (pcPhoto) {
+      ctx.save();
+      ctx.beginPath();ctx.rect(PX,PY,PS,PS);ctx.clip();
+      var sc=Math.max(PS/pcPhoto.width,PS/pcPhoto.height);
+      ctx.drawImage(pcPhoto,(pcPhoto.width-PS/sc)/2,(pcPhoto.height-PS/sc)/2,PS/sc,PS/sc,PX,PY,PS,PS);
+      if (pcBackground){
+        var tmp=document.createElement('canvas');tmp.width=PS;tmp.height=PS;
+        pcDrawBg(tmp.getContext('2d'),PS,PS);ctx.drawImage(tmp,PX,PY);
+      }
+      var sf=PS/pcCanvas.width;
+      pcStickers.forEach(function(s){pcDrawOne(ctx,{key:s.key,img:s.img,x:PX+s.x*sf,y:PY+s.y*sf,w:s.w*sf,h:s.h*sf,rotation:s.rotation,selected:false},false);});
+      ctx.restore();
+    }
+    var name=document.getElementById('visitorName').value.trim()||'Visiteur(e)';
+    ctx.fillStyle='white';ctx.font='bold 28px Georgia,serif';
+    ctx.textAlign='center';ctx.fillText(name,CW/2,PY+PS+48);
+    ctx.fillStyle='#d4b563';ctx.fillRect(CW/2-40,PY+PS+58,80,1.5);
+    ctx.fillStyle='rgba(255,255,255,0.72)';ctx.font='13px -apple-system,sans-serif';
+    ctx.fillText('Completed the France Table French Speaker Challenge',CW/2,PY+PS+82);
+    ctx.fillStyle='rgba(255,255,255,0.45)';ctx.font='11px -apple-system,sans-serif';
+    ctx.fillText('SMC International Day 2026 · Santa Monica College',CW/2,PY+PS+102);
+    ctx.fillStyle='#d4b563';ctx.font='italic bold 18px Georgia,serif';
+    ctx.fillText('Vive la France!',CW/2,CH-38);
+    ctx.fillStyle='#002395';ctx.fillRect(0,CH-8,CW/3,8);
+    ctx.fillStyle='#ffffff';ctx.fillRect(CW/3,CH-8,CW/3,8);
+    ctx.fillStyle='#ED2939';ctx.fillRect(CW*2/3,CH-8,CW/3,8);
+    document.getElementById('pcStep2').style.display='none';
+    document.getElementById('pcStep3').style.display='block';
+  }
+
+  function downloadCertificate() {
+    try {
+      var link=document.createElement('a');
+      link.download='certified-french-speaker.jpg';
+      link.href=document.getElementById('pcCertCanvas').toDataURL('image/jpeg',0.92);
+      link.click();
+    } catch(e){alert('Tip: take a screenshot to save your certificate');}
+  }
+
+  function resetPhotoCert() {
+    pcPhoto=null;pcStickers=[];pcSelected=null;pcBackground=null;
+    document.getElementById('pcStep1').style.display='block';
+    document.getElementById('pcStep2').style.display='none';
+    document.getElementById('pcStep3').style.display='none';
+    document.getElementById('pcSelCtrl').style.display='none';
+    document.getElementById('pcFileInput').value='';
+    document.querySelectorAll('.pc-mode-btn').forEach(function(b){b.classList.remove('active');});
+  }
+
+  // ─── Quiz: Where Should You Go in France? ────────────────
+  var QUIZ_QS = [
+    { q: "What is your travel vibe?", opts: ["Romance, art & cafés","Luxury, beaches & cinema","Food and local culture","Wine and elegant architecture","History and medieval places","Mountains and nature","Fairytale towns","Sunshine and villages"] },
+    { q: "What would you rather do?", opts: ["Walk by the Seine and visit museums","Enjoy the Riviera and take glamorous photos","Try traditional restaurants and local dishes","Visit vineyards and wine cellars","Explore castles, abbeys, and historical sites","Hike near lakes and mountains","Visit Christmas markets and colorful streets","Explore lavender fields and old villages"] },
+    { q: "What would you eat first?", opts: ["Croissant and café au lait","Seafood by the Mediterranean","Lyonnaise comfort food","Cheese and grand cru wine","Crêpes, cider, and seafood","Raclette or fondue","Tarte flambée and Alsatian food","Ratatouille, olive oil, and pastis"] },
+    { q: "What photo would you post?", opts: ["Eiffel Tower or a Paris café","Cannes red carpet or Monaco harbor","A legendary restaurant meal","Wine glass in Bordeaux","Mont Saint-Michel or Normandy coast","Lake Annecy or the Alps","Strasbourg old town","Lavender fields in Provence"] },
+    { q: "What is your travel personality?", opts: ["Romantic","Glamorous","Foodie","Elegant explorer","History lover","Adventurer","Cozy traveler","Slow-life dreamer"] }
+  ];
+
+  var QUIZ_DEST = [
+    { name:"Paris", emoji:"🗼", tagline:"The City of Light and Love",
+      desc:"You're drawn to romance, art, and timeless Parisian elegance. Stroll the Seine, sip café au lait on a sunny terrace, and lose yourself in the world's greatest museums.",
+      spots:["Eiffel Tower","The Louvre","Montmartre","Musée d'Orsay","Le Marais"],
+      bg:"linear-gradient(135deg,#000d3a 0%,#002395 100%)", accent:"#d4b563",
+      img:"assets/destinations/paris.jpg", ytUrl:"https://www.youtube.com/results?search_query=Paris+France+travel+cinematic+edit" },
+    { name:"French Riviera", emoji:"🌊", tagline:"Glamour, Sun & the Mediterranean",
+      desc:"You were born for the good life — azure waters, golden beaches, and a touch of Hollywood glamour. The Côte d'Azur is your playground.",
+      spots:["Nice Promenade","Cannes Festival","Monaco","Saint-Tropez","Èze Village"],
+      bg:"linear-gradient(135deg,#0055aa 0%,#0099ee 100%)", accent:"#e8f8ff",
+      img:"assets/destinations/nice.jpg", ytUrl:"https://www.youtube.com/results?search_query=Nice+France+travel+cinematic+edit" },
+    { name:"Lyon", emoji:"🍽️", tagline:"France's Culinary Capital",
+      desc:"You travel through your stomach. Lyon is the gastronomic heart of France, where every meal is a celebration and every bouchon tells a delicious story.",
+      spots:["Vieux-Lyon","Les Halles Bocuse","Fête des Lumières","Beaujolais","Fourvière Hill"],
+      bg:"linear-gradient(135deg,#8b1a1a 0%,#c43c3c 100%)", accent:"#ffe8d0",
+      img:"assets/destinations/lyon.jpg", ytUrl:"https://www.youtube.com/results?search_query=Lyon+France+travel+cinematic+edit" },
+    { name:"Bordeaux", emoji:"🍷", tagline:"Wine, Elegance & Grand Architecture",
+      desc:"You have refined taste and appreciate the finer things. Bordeaux's grand châteaux, world-class wines, and stunning 18th-century avenues were made for you.",
+      spots:["Cité du Vin","Saint-Émilion","Dune du Pilat","Place de la Bourse","Wine châteaux"],
+      bg:"linear-gradient(135deg,#4a0e0e 0%,#7a2f37 100%)", accent:"#f5e0c8",
+      img:"assets/destinations/bordeaux.jpg", ytUrl:"https://www.youtube.com/results?search_query=Bordeaux+France+travel+cinematic+edit" },
+    { name:"Normandy", emoji:"⚓", tagline:"History, Coast & Timeless Wonder",
+      desc:"You get chills standing where history was made. From D-Day beaches to the magical island of Mont Saint-Michel, Normandy will leave you speechless.",
+      spots:["Mont Saint-Michel","D-Day Beaches","Étretat Cliffs","Rouen Cathedral","Bayeux Tapestry"],
+      bg:"linear-gradient(135deg,#1a2a3a 0%,#2c4a6a 100%)", accent:"#c8d8e8",
+      img:"assets/destinations/mont-saint-michel.jpg", ytUrl:"https://www.youtube.com/results?search_query=Mont+Saint+Michel+France+cinematic+travel+edit" },
+    { name:"Annecy & the Alps", emoji:"🏔️", tagline:"Nature, Lakes & Mountain Magic",
+      desc:"You need fresh air and jaw-dropping scenery. Annecy's crystal-clear lake and the surrounding Alps offer some of Europe's most breathtaking landscapes.",
+      spots:["Lake Annecy","Chamonix & Mont Blanc","Old Town Annecy","Alpine Hikes","Ski Resorts"],
+      bg:"linear-gradient(135deg,#0d4028 0%,#1a7a4a 100%)", accent:"#a0f0c0",
+      img:"", ytUrl:"https://www.youtube.com/results?search_query=Annecy+Alps+France+cinematic+travel+edit" },
+    { name:"Alsace & Strasbourg", emoji:"🎄", tagline:"Fairytales, Flavor & Festive Charm",
+      desc:"You want to step into a storybook. Strasbourg's half-timbered houses, world-famous Christmas market, and Franco-German cuisine make it truly unique.",
+      spots:["Strasbourg Cathedral","Colmar Old Town","Route des Vins","Christmas Markets","Petite France"],
+      bg:"linear-gradient(135deg,#6b3a00 0%,#b87000 100%)", accent:"#fff5cc",
+      img:"assets/destinations/strasbourg.jpg", ytUrl:"https://www.youtube.com/results?search_query=Strasbourg+Alsace+travel+cinematic+edit" },
+    { name:"Provence", emoji:"🌿", tagline:"Slow Life, Lavender & Pure Sunshine",
+      desc:"You crave beauty, peace, and the art of living slowly. Provence's lavender fields, sun-drenched villages, and olive groves will restore your soul.",
+      spots:["Lavender Fields","Gordes Village","Avignon Palace","Les Baux","Luberon Villages"],
+      bg:"linear-gradient(135deg,#3a1a5a 0%,#7a4a9a 100%)", accent:"#f0e0ff",
+      img:"", ytUrl:"https://www.youtube.com/results?search_query=Provence+France+cinematic+travel+edit" }
+  ];
+
+  var quizScores = [0,0,0,0,0,0,0,0];
+  var quizStep = 0;
+
+  function quizInit() {
+    quizScores = [0,0,0,0,0,0,0,0];
+    quizStep = 0;
+    document.getElementById('quizStep').style.display = 'block';
+    document.getElementById('quizResult').style.display = 'none';
+    quizRender();
+  }
+
+  function quizRender() {
+    var q = QUIZ_QS[quizStep];
+    document.getElementById('quizStepLabel').textContent = 'Question ' + (quizStep+1) + ' of ' + QUIZ_QS.length;
+    document.getElementById('quizFill').style.width = Math.round(quizStep/QUIZ_QS.length*100)+'%';
+    document.getElementById('quizQ').textContent = q.q;
+    var opts = document.getElementById('quizOpts');
+    opts.innerHTML = '';
+    q.opts.forEach(function(opt, i) {
+      var btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.textContent = opt;
+      btn.addEventListener('click', function() { quizPick(i); });
+      opts.appendChild(btn);
+    });
+  }
+
+  function quizPick(idx) {
+    quizScores[idx]++;
+    quizStep++;
+    if (quizStep >= QUIZ_QS.length) { quizShow(); } else { quizRender(); }
+  }
+
+  function quizShow() {
+    var best = 0;
+    quizScores.forEach(function(s,i){ if(s > quizScores[best]) best = i; });
+    var d = QUIZ_DEST[best];
+    document.getElementById('quizFill').style.width = '100%';
+    document.getElementById('quizStepLabel').textContent = 'Your result!';
+    document.getElementById('quizStep').style.display = 'none';
+    var spots = d.spots.map(function(s){ return '<span class="quiz-dest-spot">'+s+'</span>'; }).join('');
+    var photoHtml = d.img ? '<img class="quiz-dest-photo" src="'+d.img+'" alt="'+d.name+'" loading="lazy" onerror="this.style.display=\'none\'">' : '';
+    document.getElementById('quizResult').innerHTML =
+      '<div class="quiz-result-wrap">'
+      +photoHtml
+      +'<div class="quiz-result-inner" style="background:'+d.bg+'">'
+      +'<div class="quiz-dest-emoji">'+d.emoji+'</div>'
+      +'<div class="quiz-dest-label" style="color:'+d.accent+'">Your perfect destination</div>'
+      +'<div class="quiz-dest-name">'+d.name+'</div>'
+      +'<div class="quiz-dest-tagline" style="color:'+d.accent+'">'+d.tagline+'</div>'
+      +'<div class="quiz-dest-desc">'+d.desc+'</div>'
+      +'<div class="quiz-dest-spots">'+spots+'</div>'
+      +'<a class="dest-video-btn" href="'+d.ytUrl+'" target="_blank" rel="noopener" style="margin:0 auto 0.75rem;">Watch Travel Video 🎥</a>'
+      +'<button class="quiz-retry-btn" onclick="quizInit()">🔄 Try Again</button>'
+      +'</div></div>';
+    document.getElementById('quizResult').style.display = 'block';
+    document.getElementById('quizSection').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  quizInit();
 </script>
 
 </body>
